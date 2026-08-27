@@ -2,29 +2,29 @@
 
 ## JIRA
 
-**JIRA ID:** 
+**JIRA ID:**
 
 ## Feature Name
 
 <!-- Enter the feature name -->
 
-**Feature:** 
+**Feature:**
 
 ## Summary of Changes
 
 <!-- Briefly describe the changes made in this PR -->
 
-- 
-- 
-- 
+-
+-
+-
 
 ## Steps to Test the Feature
 
 <!-- Provide the steps required to test the feature -->
 
-1. 
-2. 
-3. 
+1.
+2.
+3.
 
 ## Screenshot
 

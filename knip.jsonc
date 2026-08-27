@@ -1,0 +1,15 @@
+{
+  "$schema": "https://unpkg.com/knip@latest/schema.json",
+  "ignore": [
+    "src/App.css",
+    "src/services/api/api.ts",
+    "src/services/api/apiUrls.ts",
+  ],
+  "ignoreDependencies": [
+    "@tanstack/react-query",
+    "axios",
+    "axios-retry",
+    "autoprefixer",
+    "postcss",
+  ],
+}

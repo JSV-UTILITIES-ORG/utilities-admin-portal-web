@@ -1,0 +1,23 @@
+
+echo "======================================"
+echo "      Running Pre-commit Checks       "
+echo "======================================"
+
+echo "TypeScript: Type checking..."
+npx tsc --noEmit
+
+echo "ESLint: Linting..."
+npm run lint
+
+echo "Prettier: Checking formatting..."
+npx prettier --check .
+
+echo "CSpell: Spell checking..."
+npx cspell "**/*.{ts,tsx,js,jsx,json,md,mdx,yml,yaml,css,scss}"
+
+echo "Knip: Checking for unused files/dependencies..."
+npx knip
+
+echo "======================================"
+echo "          All checks passed!          "
+echo "======================================"
