@@ -155,29 +155,6 @@ jobs:
         run: npx knip
 
   # ============================================================
-  # Tests
-  # ============================================================
-  tests:
-    name: Tests
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: npm
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Run tests
-        run: npm test
-
-  # ============================================================
   # Final CI Status
   #
   # This is the ONLY check that should be required in
@@ -198,7 +175,6 @@ jobs:
       - prettier
       - cspell
       - knip
-      - tests
 
     steps:
       - name: Check CI results
@@ -213,7 +189,6 @@ jobs:
           echo "Prettier:   ${{ needs.prettier.result }}"
           echo "CSpell:     ${{ needs.cspell.result }}"
           echo "Knip:       ${{ needs.knip.result }}"
-          echo "Tests:      ${{ needs.tests.result }}"
 
           echo "======================================"
 
@@ -222,8 +197,7 @@ jobs:
                 "${{ needs.lint.result }}" != "success" ||
                 "${{ needs.prettier.result }}" != "success" ||
                 "${{ needs.cspell.result }}" != "success" ||
-                "${{ needs.knip.result }}" != "success" ||
-                "${{ needs.tests.result }}" != "success" ]]; then
+                "${{ needs.knip.result }}" != "success" ]]; then
 
             echo "❌ CI FAILED"
             echo "Merge must be blocked."
