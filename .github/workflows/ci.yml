@@ -1,0 +1,234 @@
+name: CI
+
+on:
+  pull_request:
+    branches:
+      - main
+
+  push:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # ============================================================
+  # Install dependencies once and expose the project to checks
+  # ============================================================
+  setup:
+    name: Setup
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+  # ============================================================
+  # TypeScript
+  # ============================================================
+  typecheck:
+    name: TypeScript
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: TypeScript type check
+        run: npx tsc --noEmit
+
+  # ============================================================
+  # ESLint
+  # ============================================================
+  lint:
+    name: ESLint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: ESLint
+        run: npm run lint
+
+  # ============================================================
+  # Prettier
+  # ============================================================
+  prettier:
+    name: Prettier
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check formatting
+        run: npx prettier --check .
+
+  # ============================================================
+  # CSpell
+  # ============================================================
+  cspell:
+    name: CSpell
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Spell check
+        run: npx cspell "**/*.{ts,tsx,js,jsx,json,md,mdx,yml,yaml,css,scss}"
+
+  # ============================================================
+  # Knip
+  # ============================================================
+  knip:
+    name: Knip
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Knip
+        run: npx knip
+
+  # ============================================================
+  # Tests
+  # ============================================================
+  tests:
+    name: Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test
+
+  # ============================================================
+  # Final CI Status
+  #
+  # This is the ONLY check that should be required in
+  # GitHub branch protection.
+  #
+  # If ANY job above fails, this job fails.
+  # ============================================================
+  ci-status:
+    name: CI Status
+    runs-on: ubuntu-latest
+
+    if: always()
+
+    needs:
+      - setup
+      - typecheck
+      - lint
+      - prettier
+      - cspell
+      - knip
+      - tests
+
+    steps:
+      - name: Check CI results
+        run: |
+          echo "======================================"
+          echo "           CI RESULTS"
+          echo "======================================"
+
+          echo "Setup:      ${{ needs.setup.result }}"
+          echo "TypeScript: ${{ needs.typecheck.result }}"
+          echo "ESLint:     ${{ needs.lint.result }}"
+          echo "Prettier:   ${{ needs.prettier.result }}"
+          echo "CSpell:     ${{ needs.cspell.result }}"
+          echo "Knip:       ${{ needs.knip.result }}"
+          echo "Tests:      ${{ needs.tests.result }}"
+
+          echo "======================================"
+
+          if [[ "${{ needs.setup.result }}" != "success" ||
+                "${{ needs.typecheck.result }}" != "success" ||
+                "${{ needs.lint.result }}" != "success" ||
+                "${{ needs.prettier.result }}" != "success" ||
+                "${{ needs.cspell.result }}" != "success" ||
+                "${{ needs.knip.result }}" != "success" ||
+                "${{ needs.tests.result }}" != "success" ]]; then
+
+            echo "❌ CI FAILED"
+            echo "Merge must be blocked."
+            exit 1
+          fi
+
+          echo "✅ CI PASSED"
+          echo "All required checks passed."
