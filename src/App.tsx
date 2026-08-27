@@ -1,8 +1,15 @@
-const App = () => {
+import React from "react";
+import { BrowserRouter } from "react-router-dom";
+import { AuthProvider } from "./features/auth/AuthContext";
+import { AppRoutes } from "./app/routes/AppRoutes";
+
+const App: React.FC = () => {
   return (
-    <div>
-      <h1 className="text-primary">JSV UTILITIES</h1>
-    </div>
+    <BrowserRouter>
+      <AuthProvider>
+        <AppRoutes />
+      </AuthProvider>
+    </BrowserRouter>
   );
 };
 

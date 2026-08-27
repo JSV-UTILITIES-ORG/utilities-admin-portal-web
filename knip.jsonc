@@ -1,10 +1,17 @@
 {
   "$schema": "https://unpkg.com/knip@latest/schema.json",
+  "project": ["src/**/*.{ts,tsx}"],
   "ignore": [
-    "src/App.css",
     "src/services/api/api.ts",
     "src/services/api/apiUrls.ts",
+    "src/services/assignmentService.ts",
+    "src/components/ui/EmptyState.tsx",
+    "src/permissions/index.ts",
+    "src/permissions/PermissionGate.tsx",
+    "src/styles/theme.ts",
+    "src/types/**",
   ],
+  "ignoreExportsUsedInFile": true,
   "ignoreDependencies": [
     "@tanstack/react-query",
     "axios",
