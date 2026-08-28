@@ -5,6 +5,7 @@
     "src/services/api/api.ts",
     "src/services/api/apiUrls.ts",
     "src/services/assignmentService.ts",
+    "src/components/ui/ActionCard.tsx",
     "src/components/ui/EmptyState.tsx",
     "src/permissions/index.ts",
     "src/permissions/PermissionGate.tsx",

@@ -18,42 +18,46 @@ export const SLAIndicator: React.FC<SLAIndicatorProps> = ({
   isBreached,
   className = "",
 }) => {
-  let breached = isBreached ?? false;
+  let isOverdue = isBreached ?? false;
   let text = "";
   let subtext = "";
 
   if (limitMinutes !== undefined && elapsedMinutes !== undefined) {
-    if (elapsedMinutes >= limitMinutes) breached = true;
+    if (elapsedMinutes >= limitMinutes) isOverdue = true;
     const remaining = limitMinutes - elapsedMinutes;
-    if (breached) {
-      text = `Breached by ${elapsedMinutes - limitMinutes}m`;
-      subtext = `${elapsedMinutes}m / ${limitMinutes}m`;
+    if (isOverdue) {
+      const overBy = elapsedMinutes - limitMinutes;
+      text = `Overdue (+${overBy}m late)`;
+      subtext = `Elapsed: ${elapsedMinutes}m / Max: ${limitMinutes}m`;
     } else {
-      text = `${remaining}m left`;
-      subtext = `${elapsedMinutes}m / ${limitMinutes}m`;
+      text = `${remaining}m remaining`;
+      subtext = `Elapsed: ${elapsedMinutes}m / Max: ${limitMinutes}m`;
     }
   } else if (limitHours !== undefined && elapsedHours !== undefined) {
-    if (elapsedHours >= limitHours) breached = true;
-    const remaining = (limitHours - elapsedHours).toFixed(1);
-    if (breached) {
-      text = `Breached by ${(elapsedHours - limitHours).toFixed(1)}h`;
-      subtext = `${elapsedHours.toFixed(1)}h / ${limitHours}h`;
+    if (elapsedHours >= limitHours) isOverdue = true;
+    const remaining = Math.max(0, limitHours - elapsedHours).toFixed(1);
+    if (isOverdue) {
+      const overBy = (elapsedHours - limitHours).toFixed(1);
+      text = `Overdue (+${overBy}h late)`;
+      subtext = `Elapsed: ${elapsedHours.toFixed(1)}h / Max: ${limitHours}h`;
     } else {
       text = `${remaining}h remaining`;
-      subtext = `${elapsedHours.toFixed(1)}h / ${limitHours}h`;
+      subtext = `Elapsed: ${elapsedHours.toFixed(1)}h / Max: ${limitHours}h`;
     }
   }
 
-  if (breached) {
+  if (isOverdue) {
     return (
       <div
-        className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-red-50 text-red-700 border border-red-200 text-xs font-semibold ${className}`}
+        className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs shadow-2xs ${className}`}
       >
-        <AlertCircle className="w-3.5 h-3.5 text-red-600 shrink-0 animate-pulse" />
-        <div className="flex flex-col">
-          <span className="font-bold text-red-700">🔴 SLA BREACHED</span>
+        <AlertCircle className="w-3.5 h-3.5 text-rose-600 shrink-0 animate-pulse" />
+        <div className="flex flex-col text-left leading-tight">
+          <span className="font-bold text-[11px] text-rose-700">
+            {text || "OVERDUE (Late)"}
+          </span>
           {subtext && (
-            <span className="text-[10px] text-red-600 font-medium">
+            <span className="text-[10px] text-rose-600/80 font-medium">
               {subtext}
             </span>
           )}
@@ -64,15 +68,15 @@ export const SLAIndicator: React.FC<SLAIndicatorProps> = ({
 
   return (
     <div
-      className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-50 text-slate-700 border border-slate-200 text-xs ${className}`}
+      className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-slate-50 border border-slate-200/80 text-slate-700 text-xs shadow-2xs ${className}`}
     >
       <Clock className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-      <div className="flex flex-col">
-        <span className="font-medium text-slate-900">
-          {text || "Within SLA"}
+      <div className="flex flex-col text-left leading-tight">
+        <span className="font-bold text-[11px] text-slate-800">
+          {text || "On Time"}
         </span>
         {subtext && (
-          <span className="text-[10px] text-slate-500 font-mono">
+          <span className="text-[10px] text-slate-500 font-medium">
             {subtext}
           </span>
         )}

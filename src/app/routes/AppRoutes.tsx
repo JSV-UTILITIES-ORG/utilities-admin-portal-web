@@ -13,6 +13,10 @@ import { VerificationPage } from "../../features/verification/VerificationPage";
 import { UsersPage } from "../../features/users/UsersPage";
 import { UserDetailPage } from "../../features/users/UserDetailPage";
 import { ServicesPage } from "../../features/services/ServicesPage";
+import { JobsPage } from "../../features/jobs/JobsPage";
+import { JobDetailPage } from "../../features/jobs/JobDetailPage";
+import { AccommodationsPage } from "../../features/accommodations/AccommodationsPage";
+import { AccommodationDetailPage } from "../../features/accommodations/AccommodationDetailPage";
 import { PaymentsPage } from "../../features/payments/PaymentsPage";
 import { RefundsPage } from "../../features/refunds/RefundsPage";
 import { FinancePage } from "../../features/finance/FinancePage";
@@ -76,7 +80,7 @@ export const AppRoutes: React.FC = () => {
         <Route index element={<Navigate to="/dashboard" replace />} />
         <Route path="/dashboard" element={<DashboardPage />} />
 
-        {/* Bookings & Assignments */}
+        {/* Bookings & Assignments (Service Marketplace) */}
         <Route
           path="/bookings"
           element={
@@ -102,7 +106,43 @@ export const AppRoutes: React.FC = () => {
           }
         />
 
-        {/* Partners & Verification */}
+        {/* Work Marketplace (Partner-Created Jobs) */}
+        <Route
+          path="/jobs"
+          element={
+            <ProtectedRoute permission="jobs.view">
+              <JobsPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/jobs/:id"
+          element={
+            <ProtectedRoute permission="jobs.view">
+              <JobDetailPage />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Accommodation Marketplace (PG / Stays) */}
+        <Route
+          path="/accommodations"
+          element={
+            <ProtectedRoute permission="accommodations.view">
+              <AccommodationsPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/accommodations/:id"
+          element={
+            <ProtectedRoute permission="accommodations.view">
+              <AccommodationDetailPage />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Partners & Real-Time Verification */}
         <Route
           path="/partners"
           element={
@@ -146,7 +186,7 @@ export const AppRoutes: React.FC = () => {
           }
         />
 
-        {/* Services */}
+        {/* 4-Tier Service Catalogue */}
         <Route
           path="/services"
           element={
@@ -156,7 +196,7 @@ export const AppRoutes: React.FC = () => {
           }
         />
 
-        {/* Finance */}
+        {/* Multi-Marketplace Finance & Settlements */}
         <Route
           path="/payments"
           element={
@@ -182,7 +222,7 @@ export const AppRoutes: React.FC = () => {
           }
         />
 
-        {/* Customer Operations */}
+        {/* Customer Operations & Quality */}
         <Route
           path="/support"
           element={

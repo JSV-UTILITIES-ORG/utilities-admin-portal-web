@@ -1,9 +1,15 @@
 import { mockStore } from "./mockStore";
-import type { Settlement, SettlementStatus } from "../types/payment";
+import type {
+  Settlement,
+  SettlementStatus,
+  PGCommissionRecord,
+} from "../types/payment";
 
 export interface FinancialSummary {
   grossGMV: number;
-  platformRevenue: number;
+  serviceCommissionRevenue: number;
+  pgCommissionRevenue: number;
+  totalPlatformRevenue: number;
   partnerPayoutsPaid: number;
   partnerPayoutsPending: number;
   totalRefunds: number;
@@ -12,11 +18,16 @@ export interface FinancialSummary {
 
 export const financeService = {
   async getFinancialSummary(): Promise<FinancialSummary> {
-    await new Promise((r) => setTimeout(r, 100));
-    const grossGMV = 1248000;
-    const platformRevenue = 187200; // ~15% commission
-    const partnerPayoutsPaid = 842000;
-    const partnerPayoutsPending = 78500;
+    await new Promise((r) => setTimeout(r, 80));
+    const grossGMV = 1420000;
+    const serviceCommissionRevenue = 213000; // ~15% commission on services
+    const pgCommissionRevenue =
+      mockStore.pgCommissions
+        .filter((c) => c.status === "COLLECTED")
+        .reduce((acc, c) => acc + c.commissionAmount, 0) + 3575;
+    const totalPlatformRevenue = serviceCommissionRevenue + pgCommissionRevenue;
+    const partnerPayoutsPaid = 980000;
+    const partnerPayoutsPending = 64500;
     const totalRefunds =
       mockStore.refunds
         .filter((r) => r.status === "APPROVED")
@@ -27,7 +38,9 @@ export const financeService = {
 
     return {
       grossGMV,
-      platformRevenue,
+      serviceCommissionRevenue,
+      pgCommissionRevenue,
+      totalPlatformRevenue,
       partnerPayoutsPaid,
       partnerPayoutsPending,
       totalRefunds,
@@ -38,15 +51,23 @@ export const financeService = {
   async getSettlements(
     status?: SettlementStatus | "ALL",
   ): Promise<Settlement[]> {
-    await new Promise((r) => setTimeout(r, 100));
+    await new Promise((r) => setTimeout(r, 60));
     if (!status || status === "ALL") {
       return [...mockStore.settlements];
     }
     return mockStore.settlements.filter((s) => s.status === status);
   },
 
-  async disburseSettlement(id: string, adminName: string): Promise<Settlement> {
-    await new Promise((r) => setTimeout(r, 150));
+  async getPGCommissions(): Promise<PGCommissionRecord[]> {
+    await new Promise((r) => setTimeout(r, 60));
+    return [...mockStore.pgCommissions];
+  },
+
+  async disburseSettlement(
+    id: string,
+    adminName = "Super Admin",
+  ): Promise<Settlement> {
+    await new Promise((r) => setTimeout(r, 120));
     const item = mockStore.settlements.find((s) => s.id === id);
     if (!item) throw new Error("Settlement record not found");
 
@@ -57,7 +78,7 @@ export const financeService = {
       .slice(0, 16);
 
     mockStore.addAuditLog({
-      adminId: "CURRENT_ADMIN",
+      adminId: "ADM-001",
       adminName,
       action: "PARTNER_SETTLEMENT_EXECUTED",
       entity: "Settlement",
@@ -71,7 +92,27 @@ export const financeService = {
     return { ...item };
   },
 
-  async processSettlement(id: string, adminName: string): Promise<Settlement> {
-    return this.disburseSettlement(id, adminName);
+  async markPGCommissionCollected(
+    id: string,
+    adminName = "Super Admin",
+  ): Promise<PGCommissionRecord> {
+    await new Promise((r) => setTimeout(r, 100));
+    const comm = mockStore.pgCommissions.find((c) => c.id === id);
+    if (!comm) throw new Error(`Commission record ${id} not found`);
+
+    comm.status = "COLLECTED";
+    comm.collectedAt = new Date().toISOString().replace("T", " ").slice(0, 16);
+
+    mockStore.addAuditLog({
+      adminId: "ADM-001",
+      adminName,
+      action: "COLLECT_PG_COMMISSION",
+      entity: "PG_COMMISSION",
+      entityId: id,
+      newValue: `Collected: ₹${comm.totalReceivable}`,
+      ipAddress: "127.0.0.1",
+    });
+
+    return { ...comm };
   },
 };

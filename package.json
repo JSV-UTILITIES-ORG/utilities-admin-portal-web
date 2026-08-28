@@ -12,6 +12,7 @@
     "cspell": "cspell \"**/*.{ts,tsx,js,jsx,json,md,mdx,yml,yaml,css,scss}\"",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
+    "test": "echo \"No tests specified\" && exit 0",
     "prepare": "husky"
   },
   "devDependencies": {

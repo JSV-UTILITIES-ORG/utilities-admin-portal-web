@@ -58,8 +58,7 @@ export const AssignmentsPage: React.FC = () => {
     await bookingService.assignPartner(
       selectedBooking.id,
       partner.id,
-      partner.name,
-      admin?.name || "Admin",
+      admin?.id || "ADM-001",
     );
     setIsAssignModalOpen(false);
     setActionSuccess(`Assigned #${selectedBooking.id} to ${partner.name}`);

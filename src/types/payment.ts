@@ -5,8 +5,10 @@ export type PaymentStatus =
   | "FAILED"
   | "REFUNDED"
   | "PARTIALLY_REFUNDED";
+
 export type RefundStatus =
   "REQUESTED" | "UNDER_REVIEW" | "APPROVED" | "REJECTED" | "PROCESSED";
+
 export type SettlementStatus =
   "PENDING" | "PROCESSING" | "SETTLED" | "ON_HOLD" | "FAILED";
 
@@ -43,11 +45,33 @@ export interface Settlement {
   id: string;
   partnerId: string;
   partnerName: string;
+  domain?: "SERVICE" | "PG_COMMISSION";
   completedJobs: number;
   grossAmount: number;
   commission: number;
+  taxDeduction?: number;
   partnerAmount: number;
   status: SettlementStatus;
   settlementDate?: string;
   createdAt: string;
+}
+
+export interface PGCommissionRecord {
+  id: string;
+  listingId: string;
+  propertyName: string;
+  ownerPartnerId: string;
+  ownerName: string;
+  joiningId: string;
+  userName: string;
+  monthlyRent: number;
+  commissionType: "FIXED" | "PERCENTAGE";
+  commissionRate: number;
+  commissionAmount: number;
+  gstAmount: number;
+  totalReceivable: number;
+  status: "PENDING" | "INVOICED" | "COLLECTED";
+  invoiceNumber?: string;
+  createdAt: string;
+  collectedAt?: string;
 }

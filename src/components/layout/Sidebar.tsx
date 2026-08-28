@@ -18,6 +18,8 @@ import {
   FileText,
   Settings,
   Sparkles,
+  Briefcase,
+  Home,
 } from "lucide-react";
 import { usePermissions } from "../../permissions/usePermissions";
 import type { Permission } from "../../types/admin";
@@ -49,7 +51,7 @@ export const Sidebar: React.FC = () => {
       ],
     },
     {
-      title: "OPERATIONS",
+      title: "SERVICE MARKETPLACE",
       items: [
         {
           label: "Bookings",
@@ -58,28 +60,55 @@ export const Sidebar: React.FC = () => {
           permission: "bookings.view",
         },
         {
-          label: "Assignments",
+          label: "Assignment Center",
           path: "/assignments",
           icon: <Send className="w-4 h-4" />,
           permission: "assignments.view",
         },
         {
-          label: "Partners",
+          label: "Service Catalogue",
+          path: "/services",
+          icon: <Wrench className="w-4 h-4" />,
+          permission: "services.view",
+        },
+      ],
+    },
+    {
+      title: "WORK MARKETPLACE",
+      items: [
+        {
+          label: "Partner Jobs",
+          path: "/jobs",
+          icon: <Briefcase className="w-4 h-4" />,
+          permission: "jobs.view",
+        },
+      ],
+    },
+    {
+      title: "ACCOMMODATION (PG)",
+      items: [
+        {
+          label: "Stay / PG Listings",
+          path: "/accommodations",
+          icon: <Home className="w-4 h-4" />,
+          permission: "accommodations.view",
+        },
+      ],
+    },
+    {
+      title: "PARTNERS & KYC",
+      items: [
+        {
+          label: "Partners Directory",
           path: "/partners",
           icon: <Users className="w-4 h-4" />,
           permission: "partners.view",
         },
         {
-          label: "Verification",
+          label: "Real-Time KYC",
           path: "/verification",
           icon: <ShieldCheck className="w-4 h-4" />,
           permission: "verification.view",
-        },
-        {
-          label: "Services",
-          path: "/services",
-          icon: <Wrench className="w-4 h-4" />,
-          permission: "services.view",
         },
       ],
     },
@@ -95,7 +124,7 @@ export const Sidebar: React.FC = () => {
       ],
     },
     {
-      title: "FINANCE",
+      title: "FINANCE & SETTLEMENTS",
       items: [
         {
           label: "Payments",
@@ -110,7 +139,7 @@ export const Sidebar: React.FC = () => {
           permission: "refunds.view",
         },
         {
-          label: "Finance",
+          label: "Multi-Domain Finance",
           path: "/finance",
           icon: <Landmark className="w-4 h-4" />,
           permission: "finance.view",
@@ -121,13 +150,13 @@ export const Sidebar: React.FC = () => {
       title: "CUSTOMER OPERATIONS",
       items: [
         {
-          label: "Support",
+          label: "Support Tickets",
           path: "/support",
           icon: <Headphones className="w-4 h-4" />,
           permission: "support.view",
         },
         {
-          label: "Disputes",
+          label: "Disputes & Quality",
           path: "/disputes",
           icon: <AlertOctagon className="w-4 h-4" />,
           permission: "disputes.view",
@@ -138,7 +167,7 @@ export const Sidebar: React.FC = () => {
       title: "ANALYTICS",
       items: [
         {
-          label: "Reports",
+          label: "Analytics Reports",
           path: "/reports",
           icon: <BarChart3 className="w-4 h-4" />,
           permission: "reports.view",
@@ -161,7 +190,7 @@ export const Sidebar: React.FC = () => {
           permission: "audit.view",
         },
         {
-          label: "Settings",
+          label: "Platform Settings",
           path: "/settings",
           icon: <Settings className="w-4 h-4" />,
           permission: "settings.manage",
@@ -171,7 +200,7 @@ export const Sidebar: React.FC = () => {
   ];
 
   return (
-    <aside className="w-60 bg-white text-slate-700 flex flex-col shrink-0 border-r border-slate-200 h-screen sticky top-0 overflow-y-auto">
+    <aside className="w-64 bg-white text-slate-700 flex flex-col shrink-0 border-r border-slate-200 h-screen sticky top-0 overflow-y-auto">
       {/* Brand Header */}
       <div className="p-4 border-b border-slate-100 flex items-center gap-3">
         <div className="w-8 h-8 rounded-lg bg-[#0f172a] flex items-center justify-center text-white shadow-xs">
@@ -182,13 +211,13 @@ export const Sidebar: React.FC = () => {
             PaniMitra
           </h1>
           <p className="text-[11px] text-slate-400 font-medium leading-none mt-1">
-            Operations Hub
+            3-Marketplace Admin Hub
           </p>
         </div>
       </div>
 
       {/* Navigation list */}
-      <nav className="p-3 space-y-5 flex-1">
+      <nav className="p-3 space-y-4 flex-1">
         {sections.map((section, sIdx) => {
           const visibleItems = section.items.filter(
             (item) => !item.permission || hasPermission(item.permission),
