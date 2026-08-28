@@ -9,10 +9,12 @@ export const authService = {
       (a) => a.email.toLowerCase() === email.toLowerCase(),
     );
     if (found) {
-      return {
+      const user: Admin = {
         ...found,
+        permissions: ROLE_PERMISSIONS[found.role] || found.permissions,
         lastLogin: new Date().toISOString().replace("T", " ").slice(0, 16),
       };
+      return user;
     }
     // Default to Super Admin if credentials don't match exact admin
     return {
@@ -38,14 +40,22 @@ export const authService = {
       status: "ACTIVE",
       lastLogin: new Date().toISOString().replace("T", " ").slice(0, 16),
     };
-    return admin;
+    return {
+      ...admin,
+      permissions: ROLE_PERMISSIONS[role] || admin.permissions,
+    };
   },
 
   async getCurrentUser(): Promise<Admin | null> {
     const stored = localStorage.getItem("cs_admin_user");
     if (stored) {
       try {
-        return JSON.parse(stored);
+        const parsed = JSON.parse(stored) as Admin;
+        // Always sync with latest permissions defined in code for that role
+        return {
+          ...parsed,
+          permissions: ROLE_PERMISSIONS[parsed.role] || parsed.permissions,
+        };
       } catch {
         return mockStore.admins[0];
       }

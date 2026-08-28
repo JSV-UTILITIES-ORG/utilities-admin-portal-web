@@ -11,6 +11,10 @@ export type Permission =
   | "bookings.manage"
   | "assignments.view"
   | "assignments.manage"
+  | "jobs.view"
+  | "jobs.manage"
+  | "accommodations.view"
+  | "accommodations.manage"
   | "verification.view"
   | "verification.manage"
   | "payments.view"
@@ -30,7 +34,10 @@ export type Permission =
   | "settings.manage";
 
 export type AdminRole =
-  "SUPER_ADMIN" | "OPERATIONS_ADMIN" | "FINANCE_ADMIN" | "SUPPORT_ADMIN";
+  | "SUPER_ADMIN"
+  | "OPERATIONS_ADMIN"
+  | "FINANCE_ADMIN"
+  | "SUPPORT_ADMIN";
 
 export interface Admin {
   id: string;

@@ -81,4 +81,12 @@ export const partnerService = {
 
     return { ...partner };
   },
+
+  async suspendPartner(id: string, reason: string, adminName: string): Promise<Partner> {
+    return this.updatePartnerStatus(id, "SUSPENDED", reason, adminName);
+  },
+
+  async activatePartner(id: string, reason: string, adminName: string): Promise<Partner> {
+    return this.updatePartnerStatus(id, "ACTIVE", reason, adminName);
+  },
 };

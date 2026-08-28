@@ -1,4 +1,6 @@
 import React from "react";
+import { CustomSelect } from "./CustomSelect";
+import { RotateCcw } from "lucide-react";
 
 interface FilterOption {
   label: string;
@@ -25,40 +27,26 @@ export const FilterBar: React.FC<FilterBarProps> = ({
   className = "",
 }) => {
   return (
-    <div className={`flex flex-wrap items-center gap-2.5 ${className}`}>
+    <div className={`flex flex-wrap items-center gap-3 ${className}`}>
       {groups.map((group) => (
-        <div
-          key={group.id}
-          className="flex items-center gap-1.5 bg-slate-50/70 border border-slate-200/90 rounded-xl px-3 py-1.5 shadow-2xs"
-        >
-          <span className="text-xs font-semibold text-slate-400">
-            {group.label}:
-          </span>
-          <select
+        <div key={group.id} className="min-w-[160px] max-w-xs">
+          <CustomSelect
+            options={group.options}
             value={group.value}
-            onChange={(e) => group.onChange(e.target.value)}
-            aria-label={group.label}
-            className="bg-transparent text-xs font-semibold text-slate-800 focus:outline-hidden cursor-pointer"
-          >
-            {group.options.map((opt) => (
-              <option
-                key={opt.value}
-                value={opt.value}
-                className="bg-white text-slate-900"
-              >
-                {opt.label}
-              </option>
-            ))}
-          </select>
+            onChange={group.onChange}
+            size="sm"
+            placeholder={group.label}
+          />
         </div>
       ))}
       {onReset && (
         <button
           type="button"
           onClick={onReset}
-          className="text-xs font-semibold text-blue-600 hover:text-blue-800 px-2 py-1"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-slate-600 hover:text-blue-600 hover:bg-blue-50/50 rounded-lg transition-colors border border-slate-200 bg-white shadow-2xs"
         >
-          Reset Filters
+          <RotateCcw className="w-3 h-3" />
+          <span>Reset Filters</span>
         </button>
       )}
     </div>

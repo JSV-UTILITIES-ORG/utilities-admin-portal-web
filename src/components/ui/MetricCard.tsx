@@ -24,27 +24,36 @@ export const MetricCard: React.FC<MetricCardProps> = ({
 }) => {
   return (
     <div
-      className={`bg-white border border-slate-200/90 rounded-xl p-4 shadow-xs flex flex-col justify-between ${className}`}
+      className={`relative overflow-hidden bg-white border border-slate-200/80 rounded-2xl p-5 shadow-xs hover:shadow-md hover:border-slate-300/90 transition-all duration-200 flex flex-col justify-between group ${className}`}
     >
-      <div className="flex items-center justify-between">
-        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+      {/* Top row: Title and Icon */}
+      <div className="flex items-center justify-between gap-2">
+        <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
           {title}
         </span>
-        {icon && <div className="text-slate-400 text-xs">{icon}</div>}
+        {icon && (
+          <div className="w-8 h-8 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-500 transition-colors group-hover:bg-blue-50 group-hover:text-blue-600 group-hover:border-blue-100">
+            {icon}
+          </div>
+        )}
       </div>
 
-      <div className="mt-2.5">
-        <span className="text-2xl font-bold text-slate-900 font-heading leading-tight tracking-tight">
+      {/* Main Stat Value */}
+      <div className="mt-3">
+        <div className="text-2xl font-extrabold text-slate-900 tracking-tight">
           {value}
-        </span>
+        </div>
       </div>
 
+      {/* Subtitle & Trend Chip */}
       {(subtitle || trend) && (
-        <div className="mt-2 flex items-center gap-1.5 text-[11px]">
+        <div className="mt-2.5 flex items-center gap-1.5 text-[11px] flex-wrap">
           {trend && (
             <span
-              className={`inline-flex items-center font-bold ${
-                trend.isPositive ? "text-emerald-600" : "text-red-600"
+              className={`inline-flex items-center font-bold px-1.5 py-0.5 rounded-md text-[10px] ${
+                trend.isPositive
+                  ? "text-emerald-700 bg-emerald-50 border border-emerald-200/80"
+                  : "text-rose-700 bg-rose-50 border border-rose-200/80"
               }`}
             >
               {trend.isPositive ? (
@@ -55,7 +64,9 @@ export const MetricCard: React.FC<MetricCardProps> = ({
               {Math.abs(trend.value)}%
             </span>
           )}
-          {subtitle && <span className="text-slate-400">{subtitle}</span>}
+          {subtitle && (
+            <span className="text-slate-400 font-medium">{subtitle}</span>
+          )}
         </div>
       )}
     </div>

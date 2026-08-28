@@ -43,7 +43,6 @@ export const assignmentService = {
     await bookingService.assignPartner(
       bookingId,
       partnerId,
-      partnerName,
       adminName,
     );
     const asg = mockStore.assignments.find(
