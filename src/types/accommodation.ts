@@ -10,11 +10,7 @@ export type AccommodationStatus =
 export type GenderAllowed = "MALE" | "FEMALE" | "CO_LIVING";
 
 export type SharingType =
-  | "SINGLE"
-  | "DOUBLE_SHARING"
-  | "TRIPLE_SHARING"
-  | "FOUR_SHARING"
-  | "DORMITORY";
+  "SINGLE" | "DOUBLE_SHARING" | "TRIPLE_SHARING" | "FOUR_SHARING" | "DORMITORY";
 
 export interface Bed {
   id: string;

@@ -68,7 +68,8 @@ export const DashboardPage: React.FC = () => {
             title: "Partner ID & Background Checks",
             count: 20,
             severity: "CRITICAL",
-            description: "New technician profiles waiting for admin verification",
+            description:
+              "New technician profiles waiting for admin verification",
             actionLabel: "Verify IDs",
             actionRoute: "/verification?status=PENDING",
           },
@@ -191,7 +192,8 @@ export const DashboardPage: React.FC = () => {
             </span>
           </div>
           <p className="text-xs text-slate-500 mt-1 font-medium">
-            Real-time multi-marketplace monitoring across Home Services, Work Marketplace, and PG Accommodations.
+            Real-time multi-marketplace monitoring across Home Services, Work
+            Marketplace, and PG Accommodations.
           </p>
         </div>
 
@@ -261,7 +263,8 @@ export const DashboardPage: React.FC = () => {
                 Tasks Requiring Immediate Admin Attention
               </h2>
               <p className="text-[11px] text-slate-500 font-medium">
-                Pending tasks requiring operational intervention to prevent customer delays
+                Pending tasks requiring operational intervention to prevent
+                customer delays
               </p>
             </div>
           </div>
@@ -275,8 +278,12 @@ export const DashboardPage: React.FC = () => {
             >
               <div className="flex items-start justify-between">
                 <div>
-                  <h3 className="text-xs font-bold text-slate-900">{item.title}</h3>
-                  <p className="text-[11px] text-slate-500 mt-0.5">{item.description}</p>
+                  <h3 className="text-xs font-bold text-slate-900">
+                    {item.title}
+                  </h3>
+                  <p className="text-[11px] text-slate-500 mt-0.5">
+                    {item.description}
+                  </p>
                 </div>
                 <span className="text-base font-extrabold text-rose-600 bg-rose-50 px-2 py-0.5 rounded-lg border border-rose-200 shadow-2xs">
                   {item.count}
@@ -316,12 +323,22 @@ export const DashboardPage: React.FC = () => {
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={trends}>
                 <defs>
-                  <linearGradient id="colorBookings" x1="0" y1="0" x2="0" y2="1">
+                  <linearGradient
+                    id="colorBookings"
+                    x1="0"
+                    y1="0"
+                    x2="0"
+                    y2="1"
+                  >
                     <stop offset="5%" stopColor="#2563eb" stopOpacity={0.25} />
                     <stop offset="95%" stopColor="#2563eb" stopOpacity={0} />
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
+                <CartesianGrid
+                  strokeDasharray="3 3"
+                  vertical={false}
+                  stroke="#f1f5f9"
+                />
                 <XAxis dataKey="date" stroke="#94a3b8" fontSize={11} />
                 <YAxis stroke="#94a3b8" fontSize={11} />
                 <Tooltip
@@ -372,7 +389,10 @@ export const DashboardPage: React.FC = () => {
                   paddingAngle={4}
                 >
                   {paymentShare.map((_, index) => (
-                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                    <Cell
+                      key={`cell-${index}`}
+                      fill={COLORS[index % COLORS.length]}
+                    />
                   ))}
                 </Pie>
                 <Tooltip />
@@ -403,7 +423,9 @@ export const DashboardPage: React.FC = () => {
             >
               <div className="flex items-start justify-between">
                 <div>
-                  <h3 className="text-xs font-bold text-slate-900">{zone.name}</h3>
+                  <h3 className="text-xs font-bold text-slate-900">
+                    {zone.name}
+                  </h3>
                   <p className="text-[11px] text-slate-500 mt-0.5 font-medium">
                     {zone.partners} Active Technicians
                   </p>
@@ -412,12 +434,20 @@ export const DashboardPage: React.FC = () => {
 
               <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
                 <div>
-                  <span className="text-[10px] text-slate-400 block font-medium">Avg Arrival</span>
-                  <span className="font-bold text-slate-900">{zone.avgArrival}</span>
+                  <span className="text-[10px] text-slate-400 block font-medium">
+                    Avg Arrival
+                  </span>
+                  <span className="font-bold text-slate-900">
+                    {zone.avgArrival}
+                  </span>
                 </div>
                 <div className="text-right">
-                  <span className="text-[10px] text-slate-400 block font-medium">On-Time Rate</span>
-                  <span className="font-bold text-emerald-600">{zone.onTimeRate}</span>
+                  <span className="text-[10px] text-slate-400 block font-medium">
+                    On-Time Rate
+                  </span>
+                  <span className="font-bold text-emerald-600">
+                    {zone.onTimeRate}
+                  </span>
                 </div>
               </div>
             </div>

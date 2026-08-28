@@ -31,7 +31,9 @@ export const JobsPage: React.FC = () => {
   const [jobs, setJobs] = useState<JobPost[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [search, setSearch] = useState("");
-  const [statusFilter, setStatusFilter] = useState<string>(searchParams.get("status") || "ALL");
+  const [statusFilter, setStatusFilter] = useState<string>(
+    searchParams.get("status") || "ALL",
+  );
   const [cityFilter, setCityFilter] = useState<string>("ALL");
 
   // Moderation state
@@ -46,7 +48,8 @@ export const JobsPage: React.FC = () => {
     try {
       const data = await jobService.getJobs({
         search: search || undefined,
-        status: statusFilter === "ALL" ? undefined : (statusFilter as JobStatus),
+        status:
+          statusFilter === "ALL" ? undefined : (statusFilter as JobStatus),
         city: cityFilter === "ALL" ? undefined : cityFilter,
       });
       setJobs(data);
@@ -64,7 +67,9 @@ export const JobsPage: React.FC = () => {
     if (!selectedJob) return;
     try {
       await jobService.approveJob(selectedJob.id, admin?.id);
-      setActionSuccess(`Job Post "${selectedJob.title}" has been approved and published!`);
+      setActionSuccess(
+        `Job Post "${selectedJob.title}" has been approved and published!`,
+      );
       setIsApproveOpen(false);
       loadData();
       setTimeout(() => setActionSuccess(""), 4000);
@@ -92,7 +97,10 @@ export const JobsPage: React.FC = () => {
   const pendingApprovals = jobs.filter((j) => j.status === "SUBMITTED").length;
   const publishedJobs = jobs.filter((j) => j.status === "PUBLISHED").length;
   const totalWorkersNeeded = jobs.reduce((acc, j) => acc + j.workerCount, 0);
-  const totalWorkersFilled = jobs.reduce((acc, j) => acc + j.filledWorkerCount, 0);
+  const totalWorkersFilled = jobs.reduce(
+    (acc, j) => acc + j.filledWorkerCount,
+    0,
+  );
 
   const cityOptions = [
     { label: "All Cities", value: "ALL" },
@@ -134,7 +142,9 @@ export const JobsPage: React.FC = () => {
             <MapPin className="w-3.5 h-3.5 text-blue-600 shrink-0" />
             <span>{j.city}</span>
           </div>
-          <p className="text-[11px] text-slate-500 truncate max-w-[180px] mt-0.5">{j.location}</p>
+          <p className="text-[11px] text-slate-500 truncate max-w-[180px] mt-0.5">
+            {j.location}
+          </p>
         </div>
       ),
     },
@@ -179,7 +189,9 @@ export const JobsPage: React.FC = () => {
             <Calendar className="w-3.5 h-3.5 text-slate-400 shrink-0" />
             <span>{j.startDate}</span>
           </div>
-          <div className="text-slate-400 text-[10px] pl-5 font-medium">to {j.endDate}</div>
+          <div className="text-slate-400 text-[10px] pl-5 font-medium">
+            to {j.endDate}
+          </div>
         </div>
       ),
     },
@@ -250,7 +262,8 @@ export const JobsPage: React.FC = () => {
             <span>Work Marketplace (Partner-Created Jobs)</span>
           </h1>
           <p className="text-xs text-slate-500 mt-1 font-medium">
-            Admin moderation, workforce requirements, candidate shortlisting, and locked worker assignments.
+            Admin moderation, workforce requirements, candidate shortlisting,
+            and locked worker assignments.
           </p>
         </div>
       </div>
@@ -367,7 +380,8 @@ export const JobsPage: React.FC = () => {
       >
         <div className="space-y-4">
           <p className="text-xs text-slate-600 leading-relaxed">
-            Provide a clear operational reason for rejecting this job post. The partner will be notified to revise their submission.
+            Provide a clear operational reason for rejecting this job post. The
+            partner will be notified to revise their submission.
           </p>
           <div>
             <label className="block text-xs font-semibold text-slate-700 mb-1">

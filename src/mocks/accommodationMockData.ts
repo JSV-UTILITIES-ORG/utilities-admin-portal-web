@@ -55,8 +55,19 @@ export const INITIAL_ACCOMMODATIONS: AccommodationListing[] = [
         attachedBathroom: true,
         hasAc: true,
         beds: [
-          { id: "BED-101-A", bedNumber: "101-A", isOccupied: true, occupiedByUserName: "Rahul M.", monthlyRent: 10500 },
-          { id: "BED-101-B", bedNumber: "101-B", isOccupied: false, monthlyRent: 10500 },
+          {
+            id: "BED-101-A",
+            bedNumber: "101-A",
+            isOccupied: true,
+            occupiedByUserName: "Rahul M.",
+            monthlyRent: 10500,
+          },
+          {
+            id: "BED-101-B",
+            bedNumber: "101-B",
+            isOccupied: false,
+            monthlyRent: 10500,
+          },
         ],
       },
       {
@@ -69,9 +80,25 @@ export const INITIAL_ACCOMMODATIONS: AccommodationListing[] = [
         attachedBathroom: true,
         hasAc: true,
         beds: [
-          { id: "BED-102-A", bedNumber: "102-A", isOccupied: true, occupiedByUserName: "Vikram K.", monthlyRent: 8500 },
-          { id: "BED-102-B", bedNumber: "102-B", isOccupied: false, monthlyRent: 8500 },
-          { id: "BED-102-C", bedNumber: "102-C", isOccupied: false, monthlyRent: 8500 },
+          {
+            id: "BED-102-A",
+            bedNumber: "102-A",
+            isOccupied: true,
+            occupiedByUserName: "Vikram K.",
+            monthlyRent: 8500,
+          },
+          {
+            id: "BED-102-B",
+            bedNumber: "102-B",
+            isOccupied: false,
+            monthlyRent: 8500,
+          },
+          {
+            id: "BED-102-C",
+            bedNumber: "102-C",
+            isOccupied: false,
+            monthlyRent: 8500,
+          },
         ],
       },
       {
@@ -84,7 +111,13 @@ export const INITIAL_ACCOMMODATIONS: AccommodationListing[] = [
         attachedBathroom: true,
         hasAc: true,
         beds: [
-          { id: "BED-201-A", bedNumber: "201-A", isOccupied: true, occupiedByUserName: "Ankit Roy", monthlyRent: 16000 },
+          {
+            id: "BED-201-A",
+            bedNumber: "201-A",
+            isOccupied: true,
+            occupiedByUserName: "Ankit Roy",
+            monthlyRent: 16000,
+          },
         ],
       },
     ],
@@ -95,7 +128,8 @@ export const INITIAL_ACCOMMODATIONS: AccommodationListing[] = [
       amenitiesVerified: true,
       inventoryVerified: true,
       ownerVerified: true,
-      notes: "Physical verification conducted by on-ground operations team. All fire extinguishers and biometric gates operational.",
+      notes:
+        "Physical verification conducted by on-ground operations team. All fire extinguishers and biometric gates operational.",
       verifiedBy: "ADM-001",
       verifiedAt: "2026-08-15 11:30",
     },
@@ -152,8 +186,19 @@ export const INITIAL_ACCOMMODATIONS: AccommodationListing[] = [
         attachedBathroom: true,
         hasAc: true,
         beds: [
-          { id: "BED-A01-A", bedNumber: "A01-1", isOccupied: true, occupiedByUserName: "Pooja S.", monthlyRent: 12000 },
-          { id: "BED-A01-B", bedNumber: "A01-2", isOccupied: false, monthlyRent: 12000 },
+          {
+            id: "BED-A01-A",
+            bedNumber: "A01-1",
+            isOccupied: true,
+            occupiedByUserName: "Pooja S.",
+            monthlyRent: 12000,
+          },
+          {
+            id: "BED-A01-B",
+            bedNumber: "A01-2",
+            isOccupied: false,
+            monthlyRent: 12000,
+          },
         ],
       },
       {
@@ -166,9 +211,26 @@ export const INITIAL_ACCOMMODATIONS: AccommodationListing[] = [
         attachedBathroom: true,
         hasAc: true,
         beds: [
-          { id: "BED-A02-A", bedNumber: "A02-1", isOccupied: true, occupiedByUserName: "Sneha G.", monthlyRent: 9500 },
-          { id: "BED-A02-B", bedNumber: "A02-2", isOccupied: true, occupiedByUserName: "Deepika R.", monthlyRent: 9500 },
-          { id: "BED-A02-C", bedNumber: "A02-3", isOccupied: false, monthlyRent: 9500 },
+          {
+            id: "BED-A02-A",
+            bedNumber: "A02-1",
+            isOccupied: true,
+            occupiedByUserName: "Sneha G.",
+            monthlyRent: 9500,
+          },
+          {
+            id: "BED-A02-B",
+            bedNumber: "A02-2",
+            isOccupied: true,
+            occupiedByUserName: "Deepika R.",
+            monthlyRent: 9500,
+          },
+          {
+            id: "BED-A02-C",
+            bedNumber: "A02-3",
+            isOccupied: false,
+            monthlyRent: 9500,
+          },
         ],
       },
     ],
@@ -179,7 +241,8 @@ export const INITIAL_ACCOMMODATIONS: AccommodationListing[] = [
       amenitiesVerified: true,
       inventoryVerified: false,
       ownerVerified: true,
-      notes: "Need clarification on bed inventory count for 3rd floor. Pending physical verification visit.",
+      notes:
+        "Need clarification on bed inventory count for 3rd floor. Pending physical verification visit.",
     },
     createdAt: "2026-08-26 16:30",
     updatedAt: "2026-08-27 12:00",
@@ -229,7 +292,15 @@ export const INITIAL_ACCOMMODATIONS: AccommodationListing[] = [
         rentPerBed: 22000,
         attachedBathroom: true,
         hasAc: true,
-        beds: [{ id: "BED-U01-A", bedNumber: "U01", isOccupied: true, occupiedByUserName: "Tanmay B.", monthlyRent: 22000 }],
+        beds: [
+          {
+            id: "BED-U01-A",
+            bedNumber: "U01",
+            isOccupied: true,
+            occupiedByUserName: "Tanmay B.",
+            monthlyRent: 22000,
+          },
+        ],
       },
     ],
     status: "PUBLISHED",
@@ -261,7 +332,8 @@ export const INITIAL_PG_ENQUIRIES: PGEnquiry[] = [
     userName: "Suresh Pillai",
     userMobile: "+91 98765 00003",
     moveInDate: "2026-09-01",
-    message: "Looking for double sharing with AC. Is parking available for 2-wheeler?",
+    message:
+      "Looking for double sharing with AC. Is parking available for 2-wheeler?",
     status: "VISIT_SCHEDULED",
     createdAt: "2026-08-27 11:20",
   },
@@ -285,7 +357,8 @@ export const INITIAL_PG_ENQUIRIES: PGEnquiry[] = [
     userName: "Meera Nair",
     userMobile: "+91 98765 00005",
     moveInDate: "2026-09-01",
-    message: "Moving from Chennai for internship at Microsoft. Need double sharing room.",
+    message:
+      "Moving from Chennai for internship at Microsoft. Need double sharing room.",
     status: "NEW",
     createdAt: "2026-08-28 14:10",
   },
@@ -315,7 +388,8 @@ export const INITIAL_PG_VISITS: PGVisit[] = [
     scheduledDate: "2026-08-26",
     timeSlot: "11:00 AM",
     status: "COMPLETED",
-    notes: "Visit completed. User agreed to move into Studio Suite 1 from Sept 1st.",
+    notes:
+      "Visit completed. User agreed to move into Studio Suite 1 from Sept 1st.",
     createdAt: "2026-08-24 10:00",
     completedAt: "2026-08-26 12:00",
   },

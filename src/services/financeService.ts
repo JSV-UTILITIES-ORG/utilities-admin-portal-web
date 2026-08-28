@@ -1,5 +1,9 @@
 import { mockStore } from "./mockStore";
-import type { Settlement, SettlementStatus, PGCommissionRecord } from "../types/payment";
+import type {
+  Settlement,
+  SettlementStatus,
+  PGCommissionRecord,
+} from "../types/payment";
 
 export interface FinancialSummary {
   grossGMV: number;
@@ -17,9 +21,10 @@ export const financeService = {
     await new Promise((r) => setTimeout(r, 80));
     const grossGMV = 1420000;
     const serviceCommissionRevenue = 213000; // ~15% commission on services
-    const pgCommissionRevenue = mockStore.pgCommissions
-      .filter((c) => c.status === "COLLECTED")
-      .reduce((acc, c) => acc + c.commissionAmount, 0) + 3575;
+    const pgCommissionRevenue =
+      mockStore.pgCommissions
+        .filter((c) => c.status === "COLLECTED")
+        .reduce((acc, c) => acc + c.commissionAmount, 0) + 3575;
     const totalPlatformRevenue = serviceCommissionRevenue + pgCommissionRevenue;
     const partnerPayoutsPaid = 980000;
     const partnerPayoutsPending = 64500;
@@ -43,7 +48,9 @@ export const financeService = {
     };
   },
 
-  async getSettlements(status?: SettlementStatus | "ALL"): Promise<Settlement[]> {
+  async getSettlements(
+    status?: SettlementStatus | "ALL",
+  ): Promise<Settlement[]> {
     await new Promise((r) => setTimeout(r, 60));
     if (!status || status === "ALL") {
       return [...mockStore.settlements];
@@ -56,13 +63,19 @@ export const financeService = {
     return [...mockStore.pgCommissions];
   },
 
-  async disburseSettlement(id: string, adminName = "Super Admin"): Promise<Settlement> {
+  async disburseSettlement(
+    id: string,
+    adminName = "Super Admin",
+  ): Promise<Settlement> {
     await new Promise((r) => setTimeout(r, 120));
     const item = mockStore.settlements.find((s) => s.id === id);
     if (!item) throw new Error("Settlement record not found");
 
     item.status = "SETTLED";
-    item.settlementDate = new Date().toISOString().replace("T", " ").slice(0, 16);
+    item.settlementDate = new Date()
+      .toISOString()
+      .replace("T", " ")
+      .slice(0, 16);
 
     mockStore.addAuditLog({
       adminId: "ADM-001",
@@ -81,7 +94,7 @@ export const financeService = {
 
   async markPGCommissionCollected(
     id: string,
-    adminName = "Super Admin"
+    adminName = "Super Admin",
   ): Promise<PGCommissionRecord> {
     await new Promise((r) => setTimeout(r, 100));
     const comm = mockStore.pgCommissions.find((c) => c.id === id);

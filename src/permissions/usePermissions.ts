@@ -11,8 +11,10 @@ export function usePermissions() {
     if (admin.role === "SUPER_ADMIN") return true;
 
     // Check active permissions on user object or fallback to role definition
-    if (admin.permissions && admin.permissions.includes(permission)) return true;
-    if (admin.role && ROLE_PERMISSIONS[admin.role]?.includes(permission)) return true;
+    if (admin.permissions && admin.permissions.includes(permission))
+      return true;
+    if (admin.role && ROLE_PERMISSIONS[admin.role]?.includes(permission))
+      return true;
 
     return false;
   };

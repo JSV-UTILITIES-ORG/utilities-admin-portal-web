@@ -26,7 +26,8 @@ export const INITIAL_SUBCATEGORIES: ServiceSubcategory[] = [
     categoryId: "CAT-002", // Plumbing
     categoryName: "Plumbing Services",
     name: "Taps, Mixers & Pipe Fittings",
-    description: "Leak fixes, CPVC pipe replacements, diverters, and overhead tanks",
+    description:
+      "Leak fixes, CPVC pipe replacements, diverters, and overhead tanks",
     status: "ACTIVE",
     serviceCount: 3,
     createdAt: "2026-08-01",
@@ -36,7 +37,8 @@ export const INITIAL_SUBCATEGORIES: ServiceSubcategory[] = [
     categoryId: "CAT-003", // Cleaning
     categoryName: "Home Cleaning & Pest Control",
     name: "Full Home & Deep Jet Cleaning",
-    description: "1BHK to 5BHK deep cleaning, floor scrubbing, and balcony wash",
+    description:
+      "1BHK to 5BHK deep cleaning, floor scrubbing, and balcony wash",
     status: "ACTIVE",
     serviceCount: 4,
     createdAt: "2026-08-01",
@@ -46,7 +48,8 @@ export const INITIAL_SUBCATEGORIES: ServiceSubcategory[] = [
     categoryId: "CAT-004", // Electrical
     categoryName: "Electrical & Wiring",
     name: "Switchboards, Fans & Lighting",
-    description: "Modular switchboard replacement, fan rewiring, chandelier and LED installation",
+    description:
+      "Modular switchboard replacement, fan rewiring, chandelier and LED installation",
     status: "ACTIVE",
     serviceCount: 3,
     createdAt: "2026-08-01",
@@ -59,7 +62,8 @@ export const INITIAL_PACKAGES: ServicePackage[] = [
     serviceId: "SRV-001", // AC Service
     serviceName: "AC Foam Jet Service",
     name: "Standard AC Deep Foam Service",
-    description: "Comprehensive 2-in-1 indoor and outdoor unit jet foam deep wash.",
+    description:
+      "Comprehensive 2-in-1 indoor and outdoor unit jet foam deep wash.",
     basePrice: 599,
     duration: 45,
     inclusions: [
@@ -68,9 +72,16 @@ export const INITIAL_PACKAGES: ServicePackage[] = [
       "Drain tray & pipe cleaning to prevent leakage",
       "Gas pressure & cooling temperature audit",
     ],
-    exclusions: ["Refrigerant gas refill", "Copper pipe replacement", "PCB board repair"],
+    exclusions: [
+      "Refrigerant gas refill",
+      "Copper pipe replacement",
+      "PCB board repair",
+    ],
     warrantyDays: 30,
-    materialsIncluded: ["Eco-friendly antibacterial foam cleaner", "Protective indoor jacket"],
+    materialsIncluded: [
+      "Eco-friendly antibacterial foam cleaner",
+      "Protective indoor jacket",
+    ],
     status: "ACTIVE",
     createdAt: "2026-08-05",
   },
@@ -79,7 +90,8 @@ export const INITIAL_PACKAGES: ServicePackage[] = [
     serviceId: "SRV-001",
     serviceName: "AC Foam Jet Service",
     name: "AC Service + Complete Gas Charging (R32 / R410A)",
-    description: "Jet wash service combined with 100% full cylinder refrigerant top-up and leak test.",
+    description:
+      "Jet wash service combined with 100% full cylinder refrigerant top-up and leak test.",
     basePrice: 2299,
     duration: 75,
     inclusions: [
@@ -90,7 +102,11 @@ export const INITIAL_PACKAGES: ServicePackage[] = [
     ],
     exclusions: ["Compressor replacement"],
     warrantyDays: 60,
-    materialsIncluded: ["Genuine R32/R410A gas", "Leak test solution", "Foam spray"],
+    materialsIncluded: [
+      "Genuine R32/R410A gas",
+      "Leak test solution",
+      "Foam spray",
+    ],
     status: "ACTIVE",
     createdAt: "2026-08-05",
   },
@@ -99,7 +115,8 @@ export const INITIAL_PACKAGES: ServicePackage[] = [
     serviceId: "SRV-002", // Plumbing
     serviceName: "Plumbing Inspection & Minor Repair",
     name: "Express Leak Fix & Tap Replacement Package",
-    description: "Diagnostic visit and repair/replacement of up to 2 taps or shower mixers.",
+    description:
+      "Diagnostic visit and repair/replacement of up to 2 taps or shower mixers.",
     basePrice: 299,
     duration: 30,
     inclusions: [
@@ -107,7 +124,9 @@ export const INITIAL_PACKAGES: ServicePackage[] = [
       "Replacement of washer/spindle or installation of 2 customer-supplied taps",
       "Teflon tape sealing and water pressure check",
     ],
-    exclusions: ["Cost of new taps/mixers (materials extra if supplied by partner)"],
+    exclusions: [
+      "Cost of new taps/mixers (materials extra if supplied by partner)",
+    ],
     warrantyDays: 15,
     materialsIncluded: ["Teflon sealing tape", "Rubber gaskets"],
     status: "ACTIVE",
@@ -118,7 +137,8 @@ export const INITIAL_PACKAGES: ServicePackage[] = [
     serviceId: "SRV-003", // Deep Cleaning
     serviceName: "Full Home Deep Cleaning (2BHK)",
     name: "Premium 2BHK Deep Cleaning with Machine Scrubbing",
-    description: "Complete apartment deep scrubbing using industrial single-disc machines and chemicals.",
+    description:
+      "Complete apartment deep scrubbing using industrial single-disc machines and chemicals.",
     basePrice: 3499,
     duration: 240,
     inclusions: [
@@ -130,7 +150,11 @@ export const INITIAL_PACKAGES: ServicePackage[] = [
     ],
     exclusions: ["Sofa shampooing (available as add-on)"],
     warrantyDays: 7,
-    materialsIncluded: ["Diversey chemicals", "Single-disc scrubber machine", "Microfiber cloths"],
+    materialsIncluded: [
+      "Diversey chemicals",
+      "Single-disc scrubber machine",
+      "Microfiber cloths",
+    ],
     status: "ACTIVE",
     createdAt: "2026-08-05",
   },

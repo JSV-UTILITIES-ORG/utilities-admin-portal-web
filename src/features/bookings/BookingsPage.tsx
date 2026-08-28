@@ -126,7 +126,9 @@ export const BookingsPage: React.FC = () => {
           <p className="font-bold text-slate-900 text-xs">{b.serviceName}</p>
           <p className="text-[11px] text-slate-500 font-medium mt-0.5 flex items-center gap-1">
             <MapPin className="w-3 h-3 text-blue-600 shrink-0" />
-            <span>{b.categoryName} • {b.city}</span>
+            <span>
+              {b.categoryName} • {b.city}
+            </span>
           </p>
         </div>
       ),
@@ -137,7 +139,9 @@ export const BookingsPage: React.FC = () => {
       accessor: (b) => (
         <div>
           {b.partnerName ? (
-            <span className="font-bold text-slate-800 text-xs">{b.partnerName}</span>
+            <span className="font-bold text-slate-800 text-xs">
+              {b.partnerName}
+            </span>
           ) : (
             <span className="text-[10px] font-bold text-rose-700 bg-rose-50 px-2 py-0.5 rounded-md border border-rose-200">
               Unassigned

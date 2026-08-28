@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { Settings, Save, CheckCircle, Percent, Wrench, Shield } from "lucide-react";
+import {
+  Settings,
+  Save,
+  CheckCircle,
+  Percent,
+  Wrench,
+  Shield,
+} from "lucide-react";
 import { CustomSelect } from "../../components/ui/CustomSelect";
 
 export const SettingsPage: React.FC = () => {
@@ -8,13 +15,17 @@ export const SettingsPage: React.FC = () => {
   const [serviceTakeRate, setServiceTakeRate] = useState(15);
   const [pgFixedCommission, setPgFixedCommission] = useState(2000);
   const [pgPercentageCommission, setPgPercentageCommission] = useState(15);
-  const [pgCommissionMode, setPgCommissionMode] = useState<"PERCENTAGE" | "FIXED">("PERCENTAGE");
+  const [pgCommissionMode, setPgCommissionMode] = useState<
+    "PERCENTAGE" | "FIXED"
+  >("PERCENTAGE");
   const [autoApproveOCR, setAutoApproveOCR] = useState(true);
   const [successMsg, setSuccessMsg] = useState("");
 
   const handleSave = (e: React.FormEvent) => {
     e.preventDefault();
-    setSuccessMsg("Operational settings and dynamic commission rules updated successfully.");
+    setSuccessMsg(
+      "Operational settings and dynamic commission rules updated successfully.",
+    );
     setTimeout(() => setSuccessMsg(""), 3000);
   };
 
@@ -31,7 +42,8 @@ export const SettingsPage: React.FC = () => {
           <span>Platform Operational & Commission Settings</span>
         </h1>
         <p className="text-xs text-slate-500 mt-1">
-          Configure dispatch thresholds, SLA timers, and dynamic commission percentages across all 3 marketplaces.
+          Configure dispatch thresholds, SLA timers, and dynamic commission
+          percentages across all 3 marketplaces.
         </p>
       </div>
 
@@ -61,7 +73,8 @@ export const SettingsPage: React.FC = () => {
                 className="w-full text-xs p-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-1 focus:ring-blue-500"
               />
               <p className="text-[10px] text-slate-400 mt-1">
-                Maximum search radius to query eligible partners for pending service requests.
+                Maximum search radius to query eligible partners for pending
+                service requests.
               </p>
             </div>
 
@@ -76,7 +89,8 @@ export const SettingsPage: React.FC = () => {
                 className="w-full text-xs p-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-1 focus:ring-blue-500"
               />
               <p className="text-[10px] text-slate-400 mt-1">
-                Time before auto-marking an unacknowledged assignment as ASSIGNMENT_FAILED.
+                Time before auto-marking an unacknowledged assignment as
+                ASSIGNMENT_FAILED.
               </p>
             </div>
           </div>
@@ -101,7 +115,8 @@ export const SettingsPage: React.FC = () => {
                 className="w-full text-xs p-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-1 focus:ring-emerald-500"
               />
               <p className="text-[10px] text-slate-400 mt-1">
-                Platform deduction on completed service bookings before partner settlement.
+                Platform deduction on completed service bookings before partner
+                settlement.
               </p>
             </div>
 
@@ -110,10 +125,13 @@ export const SettingsPage: React.FC = () => {
                 label="PG Move-In Commission Mode"
                 options={commissionModeOptions}
                 value={pgCommissionMode}
-                onChange={(val) => setPgCommissionMode(val as "PERCENTAGE" | "FIXED")}
+                onChange={(val) =>
+                  setPgCommissionMode(val as "PERCENTAGE" | "FIXED")
+                }
               />
               <p className="text-[10px] text-slate-400 mt-1">
-                Rule applied upon confirmed move-in (The platform never collects monthly rent).
+                Rule applied upon confirmed move-in (The platform never collects
+                monthly rent).
               </p>
             </div>
           </div>
@@ -126,7 +144,9 @@ export const SettingsPage: React.FC = () => {
               <input
                 type="number"
                 value={pgPercentageCommission}
-                onChange={(e) => setPgPercentageCommission(Number(e.target.value))}
+                onChange={(e) =>
+                  setPgPercentageCommission(Number(e.target.value))
+                }
                 className="w-full text-xs p-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-1 focus:ring-emerald-500"
               />
             </div>
@@ -163,7 +183,8 @@ export const SettingsPage: React.FC = () => {
                 Auto-Approve Partners with ≥ 90% DigiLocker & NSDL Name Match
               </span>
               <span className="text-[10px] text-slate-400">
-                Instantly approves partner find-work capabilities when automated confidence exceeds threshold.
+                Instantly approves partner find-work capabilities when automated
+                confidence exceeds threshold.
               </span>
             </div>
           </label>

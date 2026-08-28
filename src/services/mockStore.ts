@@ -15,7 +15,10 @@ import {
   AUDIT_LOGS,
   NOTIFICATIONS,
 } from "../mocks/mockData";
-import { INITIAL_JOB_POSTS, INITIAL_JOB_APPLICATIONS } from "../mocks/jobMockData";
+import {
+  INITIAL_JOB_POSTS,
+  INITIAL_JOB_APPLICATIONS,
+} from "../mocks/jobMockData";
 import {
   INITIAL_ACCOMMODATIONS,
   INITIAL_PG_ENQUIRIES,
@@ -23,19 +26,37 @@ import {
   INITIAL_PG_JOININGS,
   INITIAL_PG_COMMISSIONS,
 } from "../mocks/accommodationMockData";
-import { INITIAL_SUBCATEGORIES, INITIAL_PACKAGES } from "../mocks/catalogueMockData";
+import {
+  INITIAL_SUBCATEGORIES,
+  INITIAL_PACKAGES,
+} from "../mocks/catalogueMockData";
 
 import type { Admin } from "../types/admin";
 import type { Customer } from "../types/customer";
-import type { Service, ServiceCategory, ServiceSubcategory, ServicePackage } from "../types/service";
+import type {
+  Service,
+  ServiceCategory,
+  ServiceSubcategory,
+  ServicePackage,
+} from "../types/service";
 import type { Partner, Verification } from "../types/partner";
 import type { Booking, Assignment } from "../types/booking";
-import type { Payment, Refund, Settlement, PGCommissionRecord } from "../types/payment";
+import type {
+  Payment,
+  Refund,
+  Settlement,
+  PGCommissionRecord,
+} from "../types/payment";
 import type { Dispute } from "../types/dispute";
 import type { SupportTicket } from "../types/support";
 import type { AuditLog, Notification } from "../types/audit";
 import type { JobPost, JobApplication } from "../types/job";
-import type { AccommodationListing, PGEnquiry, PGVisit, PGJoining } from "../types/accommodation";
+import type {
+  AccommodationListing,
+  PGEnquiry,
+  PGVisit,
+  PGJoining,
+} from "../types/accommodation";
 
 // In-memory state store mimicking backend database across all 3 marketplaces
 class MockStore {
@@ -49,8 +70,10 @@ class MockStore {
     ...p,
     capabilities: p.capabilities || {
       findWork: true,
-      createJobs: p.id === "PRT-004" || p.id === "PRT-002" || p.id === "PRT-006",
-      hostAccommodation: p.id === "PRT-010" || p.id === "PRT-011" || p.id === "PRT-012",
+      createJobs:
+        p.id === "PRT-004" || p.id === "PRT-002" || p.id === "PRT-006",
+      hostAccommodation:
+        p.id === "PRT-010" || p.id === "PRT-011" || p.id === "PRT-012",
     },
     realtimeVerification: p.realtimeVerification || {
       aadhaarVerified: true,
@@ -66,7 +89,11 @@ class MockStore {
   }));
   verifications: Verification[] = VERIFICATIONS.map((v) => ({
     ...v,
-    capabilities: { findWork: true, createJobs: false, hostAccommodation: false },
+    capabilities: {
+      findWork: true,
+      createJobs: false,
+      hostAccommodation: false,
+    },
     realtimeVerification: {
       aadhaarVerified: true,
       aadhaarMatchScore: 95,
@@ -87,7 +114,8 @@ class MockStore {
             id: "CHG-801",
             amount: 850,
             reason: "R32 Refrigerant Gas Refill & Valve Seal",
-            description: "Condenser valve was leaking, tightened and added 400g gas.",
+            description:
+              "Condenser valve was leaking, tightened and added 400g gas.",
             photos: [
               "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=400&q=80",
             ],

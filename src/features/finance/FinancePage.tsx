@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { financeService, type FinancialSummary } from "../../services/financeService";
+import {
+  financeService,
+  type FinancialSummary,
+} from "../../services/financeService";
 import type { Settlement, PGCommissionRecord } from "../../types/payment";
 import { DataTable, type Column } from "../../components/ui/DataTable";
 import { StatusBadge } from "../../components/ui/StatusBadge";
@@ -24,8 +27,12 @@ export const FinancePage: React.FC = () => {
   const [pgCommissions, setPgCommissions] = useState<PGCommissionRecord[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const [activeTab, setActiveTab] = useState<"SETTLEMENTS" | "PG_COMMISSIONS">("SETTLEMENTS");
-  const [selectedSettlementId, setSelectedSettlementId] = useState<string | null>(null);
+  const [activeTab, setActiveTab] = useState<"SETTLEMENTS" | "PG_COMMISSIONS">(
+    "SETTLEMENTS",
+  );
+  const [selectedSettlementId, setSelectedSettlementId] = useState<
+    string | null
+  >(null);
   const [actionSuccess, setActionSuccess] = useState("");
 
   const loadFinanceData = async () => {
@@ -53,7 +60,7 @@ export const FinancePage: React.FC = () => {
     try {
       await financeService.disburseSettlement(
         selectedSettlementId,
-        admin?.name || "Super Admin"
+        admin?.name || "Super Admin",
       );
       setActionSuccess("Settlement payout disbursed successfully.");
       setSelectedSettlementId(null);
@@ -66,7 +73,10 @@ export const FinancePage: React.FC = () => {
 
   const handleCollectPGCommission = async (commId: string) => {
     try {
-      await financeService.markPGCommissionCollected(commId, admin?.name || "Super Admin");
+      await financeService.markPGCommissionCollected(
+        commId,
+        admin?.name || "Super Admin",
+      );
       setActionSuccess("PG Commission marked as collected.");
       loadFinanceData();
       setTimeout(() => setActionSuccess(""), 4000);
@@ -78,24 +88,32 @@ export const FinancePage: React.FC = () => {
   const settlementColumns: Column<Settlement>[] = [
     {
       header: "Settlement ID",
-      accessor: (s) => <span className="font-mono text-xs font-semibold">{s.id}</span>,
+      accessor: (s) => (
+        <span className="font-mono text-xs font-semibold">{s.id}</span>
+      ),
     },
     {
       header: "Partner Name",
       accessor: (s) => (
-        <span className="font-bold text-slate-800 text-xs">{s.partnerName}</span>
+        <span className="font-bold text-slate-800 text-xs">
+          {s.partnerName}
+        </span>
       ),
     },
     {
       header: "Completed Jobs",
       accessor: (s) => (
-        <span className="text-xs font-semibold text-slate-700">{s.completedJobs} Jobs</span>
+        <span className="text-xs font-semibold text-slate-700">
+          {s.completedJobs} Jobs
+        </span>
       ),
     },
     {
       header: "Gross GMV",
       accessor: (s) => (
-        <span className="text-xs text-slate-800">₹{s.grossAmount.toLocaleString()}</span>
+        <span className="text-xs text-slate-800">
+          ₹{s.grossAmount.toLocaleString()}
+        </span>
       ),
     },
     {
@@ -129,7 +147,9 @@ export const FinancePage: React.FC = () => {
             Disburse Payout
           </button>
         ) : (
-          <span className="text-[11px] text-slate-400 font-medium">{s.settlementDate}</span>
+          <span className="text-[11px] text-slate-400 font-medium">
+            {s.settlementDate}
+          </span>
         ),
     },
   ];
@@ -150,26 +170,34 @@ export const FinancePage: React.FC = () => {
       header: "Property & Host",
       accessor: (c) => (
         <div>
-          <div className="font-semibold text-slate-800 text-xs">{c.propertyName}</div>
+          <div className="font-semibold text-slate-800 text-xs">
+            {c.propertyName}
+          </div>
           <div className="text-[11px] text-slate-500">Owner: {c.ownerName}</div>
         </div>
       ),
     },
     {
       header: "Resident Move-In",
-      accessor: (c) => <span className="font-medium text-slate-700 text-xs">{c.userName}</span>,
+      accessor: (c) => (
+        <span className="font-medium text-slate-700 text-xs">{c.userName}</span>
+      ),
     },
     {
       header: "Monthly Rent",
       accessor: (c) => (
-        <span className="text-xs font-semibold">₹{c.monthlyRent.toLocaleString()}</span>
+        <span className="text-xs font-semibold">
+          ₹{c.monthlyRent.toLocaleString()}
+        </span>
       ),
     },
     {
       header: "Commission Rate",
       accessor: (c) => (
         <span className="text-xs text-slate-600">
-          {c.commissionType === "PERCENTAGE" ? `${c.commissionRate}%` : `Fixed ₹${c.commissionRate}`}
+          {c.commissionType === "PERCENTAGE"
+            ? `${c.commissionRate}%`
+            : `Fixed ₹${c.commissionRate}`}
         </span>
       ),
     },
@@ -223,7 +251,8 @@ export const FinancePage: React.FC = () => {
             <span>Multi-Marketplace Finance & Settlements</span>
           </h1>
           <p className="text-xs text-slate-500 mt-1">
-            Service marketplace gross settlements, platform take-rate cuts, and PG move-in joining commissions.
+            Service marketplace gross settlements, platform take-rate cuts, and
+            PG move-in joining commissions.
           </p>
         </div>
       </div>

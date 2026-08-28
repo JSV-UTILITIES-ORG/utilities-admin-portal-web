@@ -69,7 +69,11 @@ export const BookingDetailPage: React.FC = () => {
   const handleAssign = async () => {
     if (!booking || !selectedPartnerId) return;
     try {
-      await bookingService.assignPartner(booking.id, selectedPartnerId, admin?.id);
+      await bookingService.assignPartner(
+        booking.id,
+        selectedPartnerId,
+        admin?.id,
+      );
       setActionSuccess("Partner assigned successfully.");
       setIsAssignModalOpen(false);
       loadBooking();
@@ -86,7 +90,7 @@ export const BookingDetailPage: React.FC = () => {
         booking.id,
         "CANCELLED",
         `Admin cancelled: ${cancelReason}`,
-        admin?.id
+        admin?.id,
       );
       setActionSuccess("Booking has been cancelled.");
       setIsCancelModalOpen(false);
@@ -101,12 +105,18 @@ export const BookingDetailPage: React.FC = () => {
     if (!booking) return;
     try {
       await bookingService.approveAdditionalCharge(booking.id, admin?.id);
-      setActionSuccess("Additional charge approved and added to booking total.");
+      setActionSuccess(
+        "Additional charge approved and added to booking total.",
+      );
       setIsApproveChargeOpen(false);
       loadBooking();
       setTimeout(() => setActionSuccess(""), 4000);
     } catch (err: unknown) {
-      alert(err instanceof Error ? err.message : "Failed to approve additional charge");
+      alert(
+        err instanceof Error
+          ? err.message
+          : "Failed to approve additional charge",
+      );
     }
   };
 
@@ -114,12 +124,18 @@ export const BookingDetailPage: React.FC = () => {
     if (!booking) return;
     try {
       await bookingService.rejectAdditionalCharge(booking.id, admin?.id);
-      setActionSuccess("Additional charge rejected. Original price maintained.");
+      setActionSuccess(
+        "Additional charge rejected. Original price maintained.",
+      );
       setIsRejectChargeOpen(false);
       loadBooking();
       setTimeout(() => setActionSuccess(""), 4000);
     } catch (err: unknown) {
-      alert(err instanceof Error ? err.message : "Failed to reject additional charge");
+      alert(
+        err instanceof Error
+          ? err.message
+          : "Failed to reject additional charge",
+      );
     }
   };
 
@@ -130,7 +146,7 @@ export const BookingDetailPage: React.FC = () => {
         booking.id,
         status,
         `Status shifted to ${status}`,
-        admin?.id
+        admin?.id,
       );
       setActionSuccess(`Status transitioned to ${status}`);
       loadBooking();
@@ -151,7 +167,9 @@ export const BookingDetailPage: React.FC = () => {
   if (!booking) {
     return (
       <div className="p-8 text-center bg-white rounded-2xl border border-slate-200 shadow-sm">
-        <h2 className="text-base font-bold text-slate-800">Booking Not Found</h2>
+        <h2 className="text-base font-bold text-slate-800">
+          Booking Not Found
+        </h2>
         <button
           onClick={() => navigate("/bookings")}
           className="mt-3 px-4 py-2 text-xs font-semibold bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow-sm"
@@ -235,7 +253,9 @@ export const BookingDetailPage: React.FC = () => {
                 className="px-3 py-1.5 bg-slate-900 hover:bg-black text-white text-xs font-semibold rounded-lg shadow-xs flex items-center gap-1.5 transition-colors"
               >
                 <UserCheck className="w-4 h-4" />
-                <span>{booking.partnerId ? "Reassign Partner" : "Assign Partner"}</span>
+                <span>
+                  {booking.partnerId ? "Reassign Partner" : "Assign Partner"}
+                </span>
               </button>
 
               <button
@@ -280,7 +300,9 @@ export const BookingDetailPage: React.FC = () => {
                 </h3>
                 <p className="text-xs text-amber-800 mt-0.5 font-medium">
                   {booking.additionalCharge?.reason} — Requested Amount:{" "}
-                  <span className="font-bold text-slate-900">₹{booking.additionalCharge?.amount}</span>
+                  <span className="font-bold text-slate-900">
+                    ₹{booking.additionalCharge?.amount}
+                  </span>
                 </p>
                 {booking.additionalCharge?.description && (
                   <p className="text-[11px] text-amber-700 mt-1 italic">
@@ -319,9 +341,13 @@ export const BookingDetailPage: React.FC = () => {
                 <span className="text-[11px] font-mono text-slate-400 bg-slate-100 px-2 py-0.5 rounded-md">
                   {booking.id}
                 </span>
-                <h2 className="text-lg font-bold text-slate-900 mt-1.5">{booking.serviceName}</h2>
+                <h2 className="text-lg font-bold text-slate-900 mt-1.5">
+                  {booking.serviceName}
+                </h2>
                 <div className="flex items-center gap-2 text-xs text-slate-500 mt-1">
-                  <span className="font-semibold text-slate-700">{booking.categoryName}</span>
+                  <span className="font-semibold text-slate-700">
+                    {booking.categoryName}
+                  </span>
                   {booking.packageName && (
                     <>
                       <span>•</span>
@@ -357,15 +383,21 @@ export const BookingDetailPage: React.FC = () => {
                   <Calendar className="w-3.5 h-3.5 text-blue-600" />
                   <span>Scheduled Date & Time</span>
                 </div>
-                <div className="font-bold text-slate-900 mt-0.5">{booking.scheduledAt}</div>
+                <div className="font-bold text-slate-900 mt-0.5">
+                  {booking.scheduledAt}
+                </div>
               </div>
               <div className="p-3.5 bg-slate-50/70 rounded-xl border border-slate-200/70">
                 <div className="text-slate-400 flex items-center gap-1.5 mb-1 font-semibold text-[11px]">
                   <MapPin className="w-3.5 h-3.5 text-blue-600" />
                   <span>Service Location</span>
                 </div>
-                <div className="font-bold text-slate-900 mt-0.5">{booking.city}</div>
-                <div className="text-[11px] text-slate-500 truncate mt-0.5">{booking.address}</div>
+                <div className="font-bold text-slate-900 mt-0.5">
+                  {booking.city}
+                </div>
+                <div className="text-[11px] text-slate-500 truncate mt-0.5">
+                  {booking.address}
+                </div>
               </div>
             </div>
           </div>
@@ -387,7 +419,9 @@ export const BookingDetailPage: React.FC = () => {
               <div className="p-3.5 bg-slate-50/60 rounded-xl border border-slate-200/80 space-y-2.5">
                 <div className="font-bold text-xs text-slate-800 flex items-center justify-between">
                   <span>Pre-Service Inspection</span>
-                  <span className="text-[10px] text-slate-400 font-medium">Required on Start</span>
+                  <span className="text-[10px] text-slate-400 font-medium">
+                    Required on Start
+                  </span>
                 </div>
                 {booking.beforePhotos && booking.beforePhotos.length > 0 ? (
                   <img
@@ -402,7 +436,8 @@ export const BookingDetailPage: React.FC = () => {
                   </div>
                 )}
                 <p className="text-[11px] text-slate-500 italic">
-                  {booking.beforePhotos?.[0]?.caption || "Initial condition photograph"}
+                  {booking.beforePhotos?.[0]?.caption ||
+                    "Initial condition photograph"}
                 </p>
               </div>
 
@@ -427,7 +462,8 @@ export const BookingDetailPage: React.FC = () => {
                   </div>
                 )}
                 <p className="text-[11px] text-slate-500 italic">
-                  {booking.afterPhotos?.[0]?.caption || "Completed service inspection"}
+                  {booking.afterPhotos?.[0]?.caption ||
+                    "Completed service inspection"}
                 </p>
               </div>
             </div>
@@ -451,9 +487,15 @@ export const BookingDetailPage: React.FC = () => {
               <span>Customer Details</span>
             </h3>
             <div className="space-y-1">
-              <div className="font-bold text-slate-900 text-sm">{booking.customerName}</div>
-              <div className="text-xs text-slate-500 font-medium">{booking.customerMobile}</div>
-              <div className="text-xs text-slate-500 leading-relaxed pt-1">{booking.address}</div>
+              <div className="font-bold text-slate-900 text-sm">
+                {booking.customerName}
+              </div>
+              <div className="text-xs text-slate-500 font-medium">
+                {booking.customerMobile}
+              </div>
+              <div className="text-xs text-slate-500 leading-relaxed pt-1">
+                {booking.address}
+              </div>
             </div>
             <div className="pt-2 border-t border-slate-100">
               <Link
@@ -475,7 +517,9 @@ export const BookingDetailPage: React.FC = () => {
             {booking.partnerId ? (
               <div className="space-y-3">
                 <div>
-                  <div className="font-bold text-slate-900 text-sm">{booking.partnerName}</div>
+                  <div className="font-bold text-slate-900 text-sm">
+                    {booking.partnerName}
+                  </div>
                   <div className="text-xs font-mono text-slate-400 mt-0.5">
                     ID: {booking.partnerId}
                   </div>
@@ -492,7 +536,8 @@ export const BookingDetailPage: React.FC = () => {
               </div>
             ) : (
               <div className="text-xs text-amber-800 bg-amber-50/80 p-3.5 rounded-xl border border-amber-200/80 leading-relaxed">
-                No partner assigned yet. Click "Assign Partner" to assign an active, verified technician.
+                No partner assigned yet. Click "Assign Partner" to assign an
+                active, verified technician.
               </div>
             )}
           </div>
@@ -508,7 +553,8 @@ export const BookingDetailPage: React.FC = () => {
       >
         <div className="space-y-4 text-xs">
           <p className="text-slate-600">
-            Select an active, verified technician for <b>{booking.serviceName}</b> in <b>{booking.city}</b>:
+            Select an active, verified technician for{" "}
+            <b>{booking.serviceName}</b> in <b>{booking.city}</b>:
           </p>
           <div>
             <CustomSelect
@@ -545,7 +591,8 @@ export const BookingDetailPage: React.FC = () => {
       >
         <div className="space-y-4 text-xs">
           <p className="text-slate-600">
-            Are you sure you want to cancel this booking? Please provide a clear operational reason for the audit trail.
+            Are you sure you want to cancel this booking? Please provide a clear
+            operational reason for the audit trail.
           </p>
           <div>
             <label className="block font-semibold text-slate-700 mb-1">

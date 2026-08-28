@@ -220,7 +220,7 @@ export const Sidebar: React.FC = () => {
       <nav className="p-3 space-y-4 flex-1">
         {sections.map((section, sIdx) => {
           const visibleItems = section.items.filter(
-            (item) => !item.permission || hasPermission(item.permission)
+            (item) => !item.permission || hasPermission(item.permission),
           );
 
           if (visibleItems.length === 0) return null;

@@ -17,7 +17,9 @@ export interface AccommodationFilters {
 }
 
 export const accommodationService = {
-  async getAccommodations(filters?: AccommodationFilters): Promise<AccommodationListing[]> {
+  async getAccommodations(
+    filters?: AccommodationFilters,
+  ): Promise<AccommodationListing[]> {
     await new Promise((r) => setTimeout(r, 80));
     let list = [...mockStore.accommodations];
 
@@ -25,7 +27,9 @@ export const accommodationService = {
       list = list.filter((a) => a.status === filters.status);
     }
     if (filters?.city && filters.city !== "ALL") {
-      list = list.filter((a) => a.city.toLowerCase() === filters.city?.toLowerCase());
+      list = list.filter(
+        (a) => a.city.toLowerCase() === filters.city?.toLowerCase(),
+      );
     }
     if (filters?.gender && filters.gender !== "ALL") {
       list = list.filter((a) => a.genderAllowed === filters.gender);
@@ -37,7 +41,7 @@ export const accommodationService = {
           a.propertyName.toLowerCase().includes(q) ||
           a.ownerName.toLowerCase().includes(q) ||
           a.area.toLowerCase().includes(q) ||
-          a.id.toLowerCase().includes(q)
+          a.id.toLowerCase().includes(q),
       );
     }
     return list;
@@ -52,7 +56,7 @@ export const accommodationService = {
   async verifyAndPublishListing(
     listingId: string,
     checklist: VerificationChecklist,
-    adminId = "ADM-001"
+    adminId = "ADM-001",
   ): Promise<AccommodationListing> {
     await new Promise((r) => setTimeout(r, 100));
     const item = mockStore.accommodations.find((a) => a.id === listingId);
@@ -81,7 +85,11 @@ export const accommodationService = {
     return { ...item };
   },
 
-  async rejectListing(listingId: string, reason: string, adminId = "ADM-001"): Promise<AccommodationListing> {
+  async rejectListing(
+    listingId: string,
+    reason: string,
+    adminId = "ADM-001",
+  ): Promise<AccommodationListing> {
     await new Promise((r) => setTimeout(r, 100));
     const item = mockStore.accommodations.find((a) => a.id === listingId);
     if (!item) throw new Error(`Listing ${listingId} not found`);
@@ -103,7 +111,10 @@ export const accommodationService = {
     return { ...item };
   },
 
-  async suspendListing(listingId: string, adminId = "ADM-001"): Promise<AccommodationListing> {
+  async suspendListing(
+    listingId: string,
+    adminId = "ADM-001",
+  ): Promise<AccommodationListing> {
     await new Promise((r) => setTimeout(r, 80));
     const item = mockStore.accommodations.find((a) => a.id === listingId);
     if (!item) throw new Error(`Listing ${listingId} not found`);
@@ -127,12 +138,13 @@ export const accommodationService = {
   // Enquiries & Visits Management
   async getEnquiries(listingId?: string): Promise<PGEnquiry[]> {
     await new Promise((r) => setTimeout(r, 50));
-    if (listingId) return mockStore.pgEnquiries.filter((e) => e.listingId === listingId);
+    if (listingId)
+      return mockStore.pgEnquiries.filter((e) => e.listingId === listingId);
     return [...mockStore.pgEnquiries];
   },
 
   async createEnquiry(
-    data: Omit<PGEnquiry, "id" | "createdAt" | "status">
+    data: Omit<PGEnquiry, "id" | "createdAt" | "status">,
   ): Promise<PGEnquiry> {
     await new Promise((r) => setTimeout(r, 80));
     const newEnquiry: PGEnquiry = {
@@ -142,7 +154,9 @@ export const accommodationService = {
       createdAt: new Date().toISOString().replace("T", " ").slice(0, 16),
     };
     mockStore.pgEnquiries.unshift(newEnquiry);
-    const listing = mockStore.accommodations.find((a) => a.id === data.listingId);
+    const listing = mockStore.accommodations.find(
+      (a) => a.id === data.listingId,
+    );
     if (listing) listing.enquiriesCount += 1;
     return newEnquiry;
   },
@@ -152,7 +166,8 @@ export const accommodationService = {
     const enq = mockStore.pgEnquiries.find((e) => e.id === enquiryId);
     if (!enq) throw new Error("Enquiry not found");
     enq.status = "CONTACTED";
-    if (notes) enq.message = `${enq.message ? enq.message + " | " : ""}Admin Response: ${notes}`;
+    if (notes)
+      enq.message = `${enq.message ? enq.message + " | " : ""}Admin Response: ${notes}`;
     return { ...enq };
   },
 
@@ -160,7 +175,7 @@ export const accommodationService = {
     enquiryId: string,
     scheduledDate: string,
     timeSlot: string,
-    notes?: string
+    notes?: string,
   ): Promise<{ enquiry: PGEnquiry; visit: PGVisit }> {
     await new Promise((r) => setTimeout(r, 100));
     const enq = mockStore.pgEnquiries.find((e) => e.id === enquiryId);
@@ -182,7 +197,9 @@ export const accommodationService = {
     };
     mockStore.pgVisits.unshift(newVisit);
 
-    const listing = mockStore.accommodations.find((a) => a.id === enq.listingId);
+    const listing = mockStore.accommodations.find(
+      (a) => a.id === enq.listingId,
+    );
     if (listing) listing.visitsCount += 1;
 
     return { enquiry: { ...enq }, visit: newVisit };
@@ -193,20 +210,22 @@ export const accommodationService = {
     const enq = mockStore.pgEnquiries.find((e) => e.id === enquiryId);
     if (!enq) throw new Error("Enquiry not found");
     enq.status = "DROPPED";
-    if (reason) enq.message = `${enq.message ? enq.message + " | " : ""}Closed reason: ${reason}`;
+    if (reason)
+      enq.message = `${enq.message ? enq.message + " | " : ""}Closed reason: ${reason}`;
     return { ...enq };
   },
 
   async getVisits(listingId?: string): Promise<PGVisit[]> {
     await new Promise((r) => setTimeout(r, 50));
-    if (listingId) return mockStore.pgVisits.filter((v) => v.listingId === listingId);
+    if (listingId)
+      return mockStore.pgVisits.filter((v) => v.listingId === listingId);
     return [...mockStore.pgVisits];
   },
 
   async updateVisitStatus(
     visitId: string,
     status: PGVisit["status"],
-    notes?: string
+    notes?: string,
   ): Promise<PGVisit> {
     await new Promise((r) => setTimeout(r, 80));
     const visit = mockStore.pgVisits.find((v) => v.id === visitId);
@@ -215,7 +234,10 @@ export const accommodationService = {
     visit.status = status;
     if (notes) visit.notes = notes;
     if (status === "COMPLETED") {
-      visit.completedAt = new Date().toISOString().replace("T", " ").slice(0, 16);
+      visit.completedAt = new Date()
+        .toISOString()
+        .replace("T", " ")
+        .slice(0, 16);
     }
     return { ...visit };
   },
@@ -223,20 +245,23 @@ export const accommodationService = {
   // Joinings & Commissions
   async getJoinings(listingId?: string): Promise<PGJoining[]> {
     await new Promise((r) => setTimeout(r, 50));
-    if (listingId) return mockStore.pgJoinings.filter((j) => j.listingId === listingId);
+    if (listingId)
+      return mockStore.pgJoinings.filter((j) => j.listingId === listingId);
     return [...mockStore.pgJoinings];
   },
 
   async confirmJoining(
     joiningData: Omit<PGJoining, "id" | "joinedAt" | "commissionAmount">,
-    adminId = "ADM-001"
+    adminId = "ADM-001",
   ): Promise<{ joining: PGJoining; commission: PGCommissionRecord }> {
     await new Promise((r) => setTimeout(r, 120));
     const now = new Date().toISOString().replace("T", " ").slice(0, 16);
 
     const commissionAmount =
       joiningData.commissionType === "PERCENTAGE"
-        ? Math.round((joiningData.monthlyRent * joiningData.commissionRate) / 100)
+        ? Math.round(
+            (joiningData.monthlyRent * joiningData.commissionRate) / 100,
+          )
         : joiningData.commissionRate;
 
     const newJoining: PGJoining = {
@@ -270,7 +295,9 @@ export const accommodationService = {
     mockStore.pgCommissions.unshift(newCommission);
 
     // Update listing available bed count
-    const listing = mockStore.accommodations.find((a) => a.id === joiningData.listingId);
+    const listing = mockStore.accommodations.find(
+      (a) => a.id === joiningData.listingId,
+    );
     if (listing && listing.availableBeds > 0) {
       listing.availableBeds -= 1;
       listing.joinsCount += 1;

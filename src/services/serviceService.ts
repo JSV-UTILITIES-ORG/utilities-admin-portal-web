@@ -13,7 +13,9 @@ export const serviceService = {
     return [...mockStore.categories];
   },
 
-  async createCategory(data: Omit<ServiceCategory, "id" | "serviceCount" | "createdAt">): Promise<ServiceCategory> {
+  async createCategory(
+    data: Omit<ServiceCategory, "id" | "serviceCount" | "createdAt">,
+  ): Promise<ServiceCategory> {
     await new Promise((r) => setTimeout(r, 100));
     const newCat: ServiceCategory = {
       ...data,
@@ -35,9 +37,12 @@ export const serviceService = {
     return [...mockStore.subcategories];
   },
 
-  async createSubcategory(
-    data: { categoryId: string; name: string; description: string; status: "ACTIVE" | "INACTIVE" }
-  ): Promise<ServiceSubcategory> {
+  async createSubcategory(data: {
+    categoryId: string;
+    name: string;
+    description: string;
+    status: "ACTIVE" | "INACTIVE";
+  }): Promise<ServiceSubcategory> {
     await new Promise((r) => setTimeout(r, 100));
     const cat = mockStore.categories.find((c) => c.id === data.categoryId);
     const newSub: ServiceSubcategory = {
@@ -55,7 +60,10 @@ export const serviceService = {
   },
 
   // Services (Tier 3)
-  async getServices(categoryId?: string, subcategoryId?: string): Promise<Service[]> {
+  async getServices(
+    categoryId?: string,
+    subcategoryId?: string,
+  ): Promise<Service[]> {
     await new Promise((r) => setTimeout(r, 60));
     let list = [...mockStore.services];
     if (categoryId) {
@@ -68,11 +76,13 @@ export const serviceService = {
   },
 
   async createService(
-    data: Omit<Service, "id" | "categoryName" | "createdAt">
+    data: Omit<Service, "id" | "categoryName" | "createdAt">,
   ): Promise<Service> {
     await new Promise((r) => setTimeout(r, 100));
     const category = mockStore.categories.find((c) => c.id === data.categoryId);
-    const subcat = mockStore.subcategories.find((s) => s.id === data.subcategoryId);
+    const subcat = mockStore.subcategories.find(
+      (s) => s.id === data.subcategoryId,
+    );
 
     const newService: Service = {
       ...data,
@@ -100,7 +110,7 @@ export const serviceService = {
   },
 
   async createPackage(
-    data: Omit<ServicePackage, "id" | "createdAt" | "serviceName">
+    data: Omit<ServicePackage, "id" | "createdAt" | "serviceName">,
   ): Promise<ServicePackage> {
     await new Promise((r) => setTimeout(r, 100));
     const srv = mockStore.services.find((s) => s.id === data.serviceId);

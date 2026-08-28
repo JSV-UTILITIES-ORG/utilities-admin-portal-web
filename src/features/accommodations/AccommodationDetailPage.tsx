@@ -64,7 +64,9 @@ export const AccommodationDetailPage: React.FC = () => {
   const [selectedBedNumber, setSelectedBedNumber] = useState("");
   const [joinRent, setJoinRent] = useState(10000);
   const [joinDeposit, setJoinDeposit] = useState(5000);
-  const [joinCommType, setJoinCommType] = useState<"FIXED" | "PERCENTAGE">("PERCENTAGE");
+  const [joinCommType, setJoinCommType] = useState<"FIXED" | "PERCENTAGE">(
+    "PERCENTAGE",
+  );
   const joinCommRate = 15;
 
   const loadData = async () => {
@@ -93,8 +95,14 @@ export const AccommodationDetailPage: React.FC = () => {
   const handleVerifyAndPublish = async () => {
     if (!listing) return;
     try {
-      await accommodationService.verifyAndPublishListing(listing.id, checklist, admin?.id);
-      setActionSuccess(`Listing "${listing.propertyName}" verified and published successfully!`);
+      await accommodationService.verifyAndPublishListing(
+        listing.id,
+        checklist,
+        admin?.id,
+      );
+      setActionSuccess(
+        `Listing "${listing.propertyName}" verified and published successfully!`,
+      );
       setIsVerifyModalOpen(false);
       loadData();
       setTimeout(() => setActionSuccess(""), 4000);
@@ -136,7 +144,7 @@ export const AccommodationDetailPage: React.FC = () => {
           commissionRate: joinCommRate,
           commissionStatus: "INVOICED",
         },
-        admin?.id
+        admin?.id,
       );
 
       setListing((prev) => {
@@ -151,7 +159,11 @@ export const AccommodationDetailPage: React.FC = () => {
               ...room,
               beds: room.beds.map((bed) => {
                 if (bed.bedNumber !== selectedBedNumber) return bed;
-                return { ...bed, isOccupied: true, occupiedByUserName: joinUserName };
+                return {
+                  ...bed,
+                  isOccupied: true,
+                  occupiedByUserName: joinUserName,
+                };
               }),
             };
           }),
@@ -159,7 +171,7 @@ export const AccommodationDetailPage: React.FC = () => {
       });
 
       setActionSuccess(
-        `Bed ${selectedBedNumber} assigned to ${joinUserName}! Generated platform commission: ₹${commission.totalReceivable} (Invoice: ${commission.invoiceNumber}).`
+        `Bed ${selectedBedNumber} assigned to ${joinUserName}! Generated platform commission: ₹${commission.totalReceivable} (Invoice: ${commission.invoiceNumber}).`,
       );
       setIsJoinModalOpen(false);
       loadData();
@@ -182,13 +194,19 @@ export const AccommodationDetailPage: React.FC = () => {
             ...room,
             beds: room.beds.map((bed) => {
               if (bed.id !== selectedVacateBed.bedId) return bed;
-              return { ...bed, isOccupied: false, occupiedByUserName: undefined };
+              return {
+                ...bed,
+                isOccupied: false,
+                occupiedByUserName: undefined,
+              };
             }),
           };
         }),
       };
     });
-    setActionSuccess(`Bed ${selectedVacateBed.bedNumber} has been marked vacant & ready for re-allotment.`);
+    setActionSuccess(
+      `Bed ${selectedVacateBed.bedNumber} has been marked vacant & ready for re-allotment.`,
+    );
     setIsVacateModalOpen(false);
     setSelectedVacateBed(null);
     setTimeout(() => setActionSuccess(""), 4000);
@@ -205,7 +223,9 @@ export const AccommodationDetailPage: React.FC = () => {
   if (!listing) {
     return (
       <div className="p-8 text-center bg-white rounded-2xl border border-slate-200 shadow-sm">
-        <h2 className="text-base font-bold text-slate-800">Property Listing Not Found</h2>
+        <h2 className="text-base font-bold text-slate-800">
+          Property Listing Not Found
+        </h2>
         <button
           onClick={() => navigate("/accommodations")}
           className="mt-3 px-4 py-2 text-xs font-semibold bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow-sm"
@@ -250,7 +270,9 @@ export const AccommodationDetailPage: React.FC = () => {
           <button
             onClick={() => {
               setSelectedRoomNumber(listing.rooms[0]?.roomNumber || "101");
-              setSelectedBedNumber(listing.rooms[0]?.beds[0]?.bedNumber || "101-A");
+              setSelectedBedNumber(
+                listing.rooms[0]?.beds[0]?.bedNumber || "101-A",
+              );
               setJoinRent(listing.rooms[0]?.rentPerBed || 10000);
               setJoinDeposit((listing.rooms[0]?.rentPerBed || 10000) / 2);
               setIsJoinModalOpen(true);
@@ -281,7 +303,9 @@ export const AccommodationDetailPage: React.FC = () => {
               <span>•</span>
               <span>Host / Owner: {listing.ownerName}</span>
             </div>
-            <h1 className="text-xl font-bold text-slate-900 mt-1.5">{listing.propertyName}</h1>
+            <h1 className="text-xl font-bold text-slate-900 mt-1.5">
+              {listing.propertyName}
+            </h1>
             <div className="flex items-center gap-3 mt-2 text-xs text-slate-600">
               <span className="flex items-center gap-1.5 font-semibold text-slate-800">
                 <MapPin className="w-3.5 h-3.5 text-blue-600" />
@@ -318,7 +342,9 @@ export const AccommodationDetailPage: React.FC = () => {
               <div className="text-[10px] uppercase font-bold tracking-wider text-slate-400">
                 Gender
               </div>
-              <div className="text-xs font-bold text-slate-800 mt-1">{listing.genderAllowed}</div>
+              <div className="text-xs font-bold text-slate-800 mt-1">
+                {listing.genderAllowed}
+              </div>
             </div>
           </div>
         </div>
@@ -380,16 +406,22 @@ export const AccommodationDetailPage: React.FC = () => {
               <span>Room & Bed Assignment & Allotment Matrix</span>
             </h2>
             <p className="text-xs text-slate-500 mt-0.5">
-              Click on any vacant bed to immediately assign & allot it to an incoming resident.
+              Click on any vacant bed to immediately assign & allot it to an
+              incoming resident.
             </p>
           </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {listing.rooms.map((room) => (
-            <div key={room.id} className="p-4 rounded-xl border border-slate-200 bg-slate-50/50 space-y-3 shadow-2xs">
+            <div
+              key={room.id}
+              className="p-4 rounded-xl border border-slate-200 bg-slate-50/50 space-y-3 shadow-2xs"
+            >
               <div className="flex items-center justify-between">
-                <div className="font-bold text-xs text-slate-900">Room {room.roomNumber}</div>
+                <div className="font-bold text-xs text-slate-900">
+                  Room {room.roomNumber}
+                </div>
                 <span className="text-[10px] font-semibold text-blue-700 bg-blue-50 px-2 py-0.5 rounded-md border border-blue-100">
                   {room.sharingType.replace("_", " ")}
                 </span>
@@ -397,11 +429,15 @@ export const AccommodationDetailPage: React.FC = () => {
 
               <div className="flex items-center justify-between text-xs text-slate-600">
                 <span>Rent: ₹{room.rentPerBed.toLocaleString()} / bed</span>
-                <span className="font-semibold text-slate-700">{room.hasAc ? "AC Room" : "Non-AC"}</span>
+                <span className="font-semibold text-slate-700">
+                  {room.hasAc ? "AC Room" : "Non-AC"}
+                </span>
               </div>
 
               <div className="space-y-2 pt-2 border-t border-slate-200">
-                <div className="text-[10px] uppercase font-bold text-slate-400">Bed Allotments</div>
+                <div className="text-[10px] uppercase font-bold text-slate-400">
+                  Bed Allotments
+                </div>
                 {room.beds.map((bed) => (
                   <div
                     key={bed.id}
@@ -461,7 +497,9 @@ export const AccommodationDetailPage: React.FC = () => {
       <div className="bg-white rounded-2xl border border-slate-200/80 p-6 shadow-xs space-y-5">
         <h2 className="text-sm font-bold text-slate-900 flex items-center gap-2">
           <FileCheck className="w-4 h-4 text-emerald-600" />
-          <span>Move-In Confirmations & Generated Commissions ({joinings.length})</span>
+          <span>
+            Move-In Confirmations & Generated Commissions ({joinings.length})
+          </span>
         </h2>
 
         {joinings.length === 0 ? (
@@ -485,20 +523,32 @@ export const AccommodationDetailPage: React.FC = () => {
               <tbody className="divide-y divide-slate-100">
                 {joinings.map((j) => (
                   <tr key={j.id} className="hover:bg-slate-50/50">
-                    <td className="p-3 font-mono font-semibold text-slate-800">{j.id}</td>
+                    <td className="p-3 font-mono font-semibold text-slate-800">
+                      {j.id}
+                    </td>
                     <td className="p-3">
-                      <div className="font-semibold text-slate-800">{j.userName}</div>
-                      <div className="text-[11px] text-slate-500">{j.userMobile}</div>
+                      <div className="font-semibold text-slate-800">
+                        {j.userName}
+                      </div>
+                      <div className="text-[11px] text-slate-500">
+                        {j.userMobile}
+                      </div>
                     </td>
                     <td className="p-3 font-semibold text-slate-700">
                       Room {j.roomNumber} ({j.bedNumber})
                     </td>
                     <td className="p-3 text-slate-600">{j.moveInDate}</td>
-                    <td className="p-3 font-semibold text-slate-800">₹{j.monthlyRent.toLocaleString()}</td>
+                    <td className="p-3 font-semibold text-slate-800">
+                      ₹{j.monthlyRent.toLocaleString()}
+                    </td>
                     <td className="p-3 font-bold text-emerald-700">
                       ₹{j.commissionAmount.toLocaleString()}{" "}
                       <span className="text-[10px] text-slate-400 font-normal">
-                        ({j.commissionType === "PERCENTAGE" ? `${j.commissionRate}%` : "Fixed"})
+                        (
+                        {j.commissionType === "PERCENTAGE"
+                          ? `${j.commissionRate}%`
+                          : "Fixed"}
+                        )
                       </span>
                     </td>
                     <td className="p-3">
@@ -523,7 +573,8 @@ export const AccommodationDetailPage: React.FC = () => {
       >
         <div className="space-y-4 text-xs">
           <p className="text-slate-600">
-            Verify all physical and legal aspects of "{listing.propertyName}" before publishing to the Stay marketplace:
+            Verify all physical and legal aspects of "{listing.propertyName}"
+            before publishing to the Stay marketplace:
           </p>
 
           <div className="space-y-2.5 bg-slate-50 p-4 rounded-xl border border-slate-200">
@@ -531,59 +582,98 @@ export const AccommodationDetailPage: React.FC = () => {
               <input
                 type="checkbox"
                 checked={checklist.addressVerified}
-                onChange={(e) => setChecklist({ ...checklist, addressVerified: e.target.checked })}
+                onChange={(e) =>
+                  setChecklist({
+                    ...checklist,
+                    addressVerified: e.target.checked,
+                  })
+                }
                 className="w-4 h-4 rounded text-blue-600"
               />
-              <span className="font-semibold text-slate-800">Address & Geo-Coordinates Verified</span>
+              <span className="font-semibold text-slate-800">
+                Address & Geo-Coordinates Verified
+              </span>
             </label>
 
             <label className="flex items-center gap-2.5 cursor-pointer">
               <input
                 type="checkbox"
                 checked={checklist.photosVerified}
-                onChange={(e) => setChecklist({ ...checklist, photosVerified: e.target.checked })}
+                onChange={(e) =>
+                  setChecklist({
+                    ...checklist,
+                    photosVerified: e.target.checked,
+                  })
+                }
                 className="w-4 h-4 rounded text-blue-600"
               />
-              <span className="font-semibold text-slate-800">Photos & Room Views Verified Authentic</span>
+              <span className="font-semibold text-slate-800">
+                Photos & Room Views Verified Authentic
+              </span>
             </label>
 
             <label className="flex items-center gap-2.5 cursor-pointer">
               <input
                 type="checkbox"
                 checked={checklist.amenitiesVerified}
-                onChange={(e) => setChecklist({ ...checklist, amenitiesVerified: e.target.checked })}
+                onChange={(e) =>
+                  setChecklist({
+                    ...checklist,
+                    amenitiesVerified: e.target.checked,
+                  })
+                }
                 className="w-4 h-4 rounded text-blue-600"
               />
-              <span className="font-semibold text-slate-800">Amenities (Wi-Fi, Food, AC, Water) Operational</span>
+              <span className="font-semibold text-slate-800">
+                Amenities (Wi-Fi, Food, AC, Water) Operational
+              </span>
             </label>
 
             <label className="flex items-center gap-2.5 cursor-pointer">
               <input
                 type="checkbox"
                 checked={checklist.inventoryVerified}
-                onChange={(e) => setChecklist({ ...checklist, inventoryVerified: e.target.checked })}
+                onChange={(e) =>
+                  setChecklist({
+                    ...checklist,
+                    inventoryVerified: e.target.checked,
+                  })
+                }
                 className="w-4 h-4 rounded text-blue-600"
               />
-              <span className="font-semibold text-slate-800">Room & Bed Count Matches Submission</span>
+              <span className="font-semibold text-slate-800">
+                Room & Bed Count Matches Submission
+              </span>
             </label>
 
             <label className="flex items-center gap-2.5 cursor-pointer">
               <input
                 type="checkbox"
                 checked={checklist.ownerVerified}
-                onChange={(e) => setChecklist({ ...checklist, ownerVerified: e.target.checked })}
+                onChange={(e) =>
+                  setChecklist({
+                    ...checklist,
+                    ownerVerified: e.target.checked,
+                  })
+                }
                 className="w-4 h-4 rounded text-blue-600"
               />
-              <span className="font-semibold text-slate-800">Host Identity & Ownership / Lease Agreement Verified</span>
+              <span className="font-semibold text-slate-800">
+                Host Identity & Ownership / Lease Agreement Verified
+              </span>
             </label>
           </div>
 
           <div>
-            <label className="block text-slate-700 font-semibold mb-1">Verification Audit Notes</label>
+            <label className="block text-slate-700 font-semibold mb-1">
+              Verification Audit Notes
+            </label>
             <textarea
               rows={2}
               value={checklist.notes || ""}
-              onChange={(e) => setChecklist({ ...checklist, notes: e.target.value })}
+              onChange={(e) =>
+                setChecklist({ ...checklist, notes: e.target.value })
+              }
               placeholder="e.g. Physical visit conducted by operations lead..."
               className="w-full p-2.5 border border-slate-200 rounded-xl text-xs"
             />
@@ -615,11 +705,15 @@ export const AccommodationDetailPage: React.FC = () => {
       >
         <form onSubmit={handleCreateJoining} className="space-y-3.5 text-xs">
           <p className="text-slate-600">
-            Assign bed <b>{selectedBedNumber}</b> in <b>Room {selectedRoomNumber}</b> ({listing.propertyName}) to an incoming resident:
+            Assign bed <b>{selectedBedNumber}</b> in{" "}
+            <b>Room {selectedRoomNumber}</b> ({listing.propertyName}) to an
+            incoming resident:
           </p>
 
           <div>
-            <label className="block font-semibold text-slate-700 mb-1">Resident Full Name *</label>
+            <label className="block font-semibold text-slate-700 mb-1">
+              Resident Full Name *
+            </label>
             <input
               type="text"
               required
@@ -631,7 +725,9 @@ export const AccommodationDetailPage: React.FC = () => {
           </div>
 
           <div>
-            <label className="block font-semibold text-slate-700 mb-1">Resident Mobile Number *</label>
+            <label className="block font-semibold text-slate-700 mb-1">
+              Resident Mobile Number *
+            </label>
             <input
               type="tel"
               required
@@ -644,7 +740,9 @@ export const AccommodationDetailPage: React.FC = () => {
 
           <div className="grid grid-cols-2 gap-2.5">
             <div>
-              <label className="block font-semibold text-slate-700 mb-1">Room No.</label>
+              <label className="block font-semibold text-slate-700 mb-1">
+                Room No.
+              </label>
               <input
                 type="text"
                 readOnly
@@ -653,7 +751,9 @@ export const AccommodationDetailPage: React.FC = () => {
               />
             </div>
             <div>
-              <label className="block font-semibold text-slate-700 mb-1">Bed No.</label>
+              <label className="block font-semibold text-slate-700 mb-1">
+                Bed No.
+              </label>
               <input
                 type="text"
                 readOnly
@@ -665,7 +765,9 @@ export const AccommodationDetailPage: React.FC = () => {
 
           <div className="grid grid-cols-2 gap-2.5">
             <div>
-              <label className="block font-semibold text-slate-700 mb-1">Monthly Rent (₹)</label>
+              <label className="block font-semibold text-slate-700 mb-1">
+                Monthly Rent (₹)
+              </label>
               <input
                 type="number"
                 value={joinRent}
@@ -674,7 +776,9 @@ export const AccommodationDetailPage: React.FC = () => {
               />
             </div>
             <div>
-              <label className="block font-semibold text-slate-700 mb-1">Security Deposit (₹)</label>
+              <label className="block font-semibold text-slate-700 mb-1">
+                Security Deposit (₹)
+              </label>
               <input
                 type="number"
                 value={joinDeposit}
@@ -685,7 +789,9 @@ export const AccommodationDetailPage: React.FC = () => {
           </div>
 
           <div className="p-3 bg-emerald-50/80 rounded-xl border border-emerald-200/80 space-y-2">
-            <div className="font-bold text-emerald-900">Platform Joining Commission Rule</div>
+            <div className="font-bold text-emerald-900">
+              Platform Joining Commission Rule
+            </div>
             <div className="flex items-center gap-4">
               <label className="flex items-center gap-1.5 cursor-pointer">
                 <input

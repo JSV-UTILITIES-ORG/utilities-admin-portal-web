@@ -1,5 +1,10 @@
 import { mockStore } from "./mockStore";
-import type { JobPost, JobApplication, JobStatus, ApplicationStatus } from "../types/job";
+import type {
+  JobPost,
+  JobApplication,
+  JobStatus,
+  ApplicationStatus,
+} from "../types/job";
 
 export interface JobFilters {
   search?: string;
@@ -17,11 +22,15 @@ export const jobService = {
       list = list.filter((j) => j.status === filters.status);
     }
     if (filters?.city && filters.city !== "ALL") {
-      list = list.filter((j) => j.city.toLowerCase() === filters.city?.toLowerCase());
+      list = list.filter(
+        (j) => j.city.toLowerCase() === filters.city?.toLowerCase(),
+      );
     }
     if (filters?.skill && filters.skill !== "ALL") {
       list = list.filter((j) =>
-        j.requiredSkills.some((s) => s.toLowerCase().includes(filters.skill!.toLowerCase()))
+        j.requiredSkills.some((s) =>
+          s.toLowerCase().includes(filters.skill!.toLowerCase()),
+        ),
       );
     }
     if (filters?.search) {
@@ -31,7 +40,7 @@ export const jobService = {
           j.title.toLowerCase().includes(q) ||
           j.creatorPartnerName.toLowerCase().includes(q) ||
           j.location.toLowerCase().includes(q) ||
-          j.id.toLowerCase().includes(q)
+          j.id.toLowerCase().includes(q),
       );
     }
     return list;
@@ -74,7 +83,11 @@ export const jobService = {
     return { ...job };
   },
 
-  async rejectJob(jobId: string, reason: string, adminId = "ADM-001"): Promise<JobPost> {
+  async rejectJob(
+    jobId: string,
+    reason: string,
+    adminId = "ADM-001",
+  ): Promise<JobPost> {
     await new Promise((r) => setTimeout(r, 100));
     const job = mockStore.jobs.find((j) => j.id === jobId);
     if (!job) throw new Error(`Job ${jobId} not found`);
@@ -122,7 +135,7 @@ export const jobService = {
   async updateApplicationStatus(
     appId: string,
     newStatus: ApplicationStatus,
-    adminId = "ADM-001"
+    adminId = "ADM-001",
   ): Promise<JobApplication> {
     await new Promise((r) => setTimeout(r, 100));
     const app = mockStore.jobApplications.find((a) => a.id === appId);

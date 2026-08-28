@@ -7,18 +7,10 @@ export type PaymentStatus =
   | "PARTIALLY_REFUNDED";
 
 export type RefundStatus =
-  | "REQUESTED"
-  | "UNDER_REVIEW"
-  | "APPROVED"
-  | "REJECTED"
-  | "PROCESSED";
+  "REQUESTED" | "UNDER_REVIEW" | "APPROVED" | "REJECTED" | "PROCESSED";
 
 export type SettlementStatus =
-  | "PENDING"
-  | "PROCESSING"
-  | "SETTLED"
-  | "ON_HOLD"
-  | "FAILED";
+  "PENDING" | "PROCESSING" | "SETTLED" | "ON_HOLD" | "FAILED";
 
 export interface Payment {
   id: string;

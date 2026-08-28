@@ -39,17 +39,24 @@ export const AccommodationsPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   const [search, setSearch] = useState("");
-  const [activeTab, setActiveTab] = useState<"PROPERTIES" | "ENQUIRIES" | "VISITS">("PROPERTIES");
+  const [activeTab, setActiveTab] = useState<
+    "PROPERTIES" | "ENQUIRIES" | "VISITS"
+  >("PROPERTIES");
   const [cityFilter, setCityFilter] = useState<string>("ALL");
   const [actionSuccess, setActionSuccess] = useState("");
 
   // Enquiry Action Modals
-  const [selectedEnquiry, setSelectedEnquiry] = useState<PGEnquiry | null>(null);
+  const [selectedEnquiry, setSelectedEnquiry] = useState<PGEnquiry | null>(
+    null,
+  );
   const [isRespondModalOpen, setIsRespondModalOpen] = useState(false);
   const [respondNotes, setRespondNotes] = useState("");
 
-  const [isScheduleVisitModalOpen, setIsScheduleVisitModalOpen] = useState(false);
-  const [visitDate, setVisitDate] = useState(new Date().toISOString().slice(0, 10));
+  const [isScheduleVisitModalOpen, setIsScheduleVisitModalOpen] =
+    useState(false);
+  const [visitDate, setVisitDate] = useState(
+    new Date().toISOString().slice(0, 10),
+  );
   const [visitTimeSlot, setVisitTimeSlot] = useState("11:00 AM - 12:00 PM");
   const [visitNotes, setVisitNotes] = useState("");
 
@@ -57,7 +64,9 @@ export const AccommodationsPage: React.FC = () => {
   const [newEnqListingId, setNewEnqListingId] = useState("");
   const [newEnqUserName, setNewEnqUserName] = useState("");
   const [newEnqUserMobile, setNewEnqUserMobile] = useState("");
-  const [newEnqMoveInDate, setNewEnqMoveInDate] = useState(new Date().toISOString().slice(0, 10));
+  const [newEnqMoveInDate, setNewEnqMoveInDate] = useState(
+    new Date().toISOString().slice(0, 10),
+  );
   const [newEnqMessage, setNewEnqMessage] = useState("");
 
   const [isRejectEnqOpen, setIsRejectEnqOpen] = useState(false);
@@ -93,8 +102,13 @@ export const AccommodationsPage: React.FC = () => {
   const handleAcceptEnquiry = async () => {
     if (!selectedEnquiry) return;
     try {
-      await accommodationService.acceptEnquiry(selectedEnquiry.id, respondNotes);
-      setActionSuccess(`Enquiry from ${selectedEnquiry.userName} accepted & marked as Contacted.`);
+      await accommodationService.acceptEnquiry(
+        selectedEnquiry.id,
+        respondNotes,
+      );
+      setActionSuccess(
+        `Enquiry from ${selectedEnquiry.userName} accepted & marked as Contacted.`,
+      );
       setIsRespondModalOpen(false);
       setRespondNotes("");
       loadData();
@@ -112,9 +126,11 @@ export const AccommodationsPage: React.FC = () => {
         selectedEnquiry.id,
         visitDate,
         visitTimeSlot,
-        visitNotes
+        visitNotes,
       );
-      setActionSuccess(`Physical site visit scheduled for ${selectedEnquiry.userName} on ${visitDate}!`);
+      setActionSuccess(
+        `Physical site visit scheduled for ${selectedEnquiry.userName} on ${visitDate}!`,
+      );
       setIsScheduleVisitModalOpen(false);
       setVisitNotes("");
       loadData();
@@ -128,7 +144,10 @@ export const AccommodationsPage: React.FC = () => {
   const handleRejectEnquiry = async () => {
     if (!selectedEnquiry) return;
     try {
-      await accommodationService.rejectEnquiry(selectedEnquiry.id, "No vacant beds matching resident criteria");
+      await accommodationService.rejectEnquiry(
+        selectedEnquiry.id,
+        "No vacant beds matching resident criteria",
+      );
       setActionSuccess(`Enquiry #${selectedEnquiry.id} closed.`);
       setIsRejectEnqOpen(false);
       loadData();
@@ -141,7 +160,8 @@ export const AccommodationsPage: React.FC = () => {
   // Handle Create New Enquiry
   const handleCreateNewEnquiry = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!newEnqListingId || !newEnqUserName.trim() || !newEnqUserMobile.trim()) return;
+    if (!newEnqListingId || !newEnqUserName.trim() || !newEnqUserMobile.trim())
+      return;
 
     const listing = listings.find((l) => l.id === newEnqListingId);
     try {
@@ -168,7 +188,10 @@ export const AccommodationsPage: React.FC = () => {
   };
 
   // Handle Update Visit Status
-  const handleUpdateVisitStatus = async (visitId: string, status: PGVisit["status"]) => {
+  const handleUpdateVisitStatus = async (
+    visitId: string,
+    status: PGVisit["status"],
+  ) => {
     try {
       await accommodationService.updateVisitStatus(visitId, status);
       setActionSuccess(`Visit status updated to ${status}.`);
@@ -181,7 +204,9 @@ export const AccommodationsPage: React.FC = () => {
 
   // Metrics
   const totalProperties = listings.length;
-  const pendingVerification = listings.filter((l) => l.status === "UNDER_REVIEW" || l.status === "SUBMITTED").length;
+  const pendingVerification = listings.filter(
+    (l) => l.status === "UNDER_REVIEW" || l.status === "SUBMITTED",
+  ).length;
   const totalBeds = listings.reduce((acc, l) => acc + l.totalBeds, 0);
   const availableBeds = listings.reduce((acc, l) => acc + l.availableBeds, 0);
   const totalJoins = listings.reduce((acc, l) => acc + l.joinsCount, 0);
@@ -239,7 +264,9 @@ export const AccommodationsPage: React.FC = () => {
             <MapPin className="w-3.5 h-3.5 text-blue-600 shrink-0" />
             <span>{l.city}</span>
           </div>
-          <p className="text-[11px] text-slate-500 mt-0.5 font-medium">{l.area}</p>
+          <p className="text-[11px] text-slate-500 mt-0.5 font-medium">
+            {l.area}
+          </p>
         </div>
       ),
     },
@@ -284,8 +311,8 @@ export const AccommodationsPage: React.FC = () => {
             l.genderAllowed === "FEMALE"
               ? "bg-pink-50 text-pink-700 border border-pink-200"
               : l.genderAllowed === "MALE"
-              ? "bg-blue-50 text-blue-700 border border-blue-200"
-              : "bg-purple-50 text-purple-700 border border-purple-200"
+                ? "bg-blue-50 text-blue-700 border border-blue-200"
+                : "bg-purple-50 text-purple-700 border border-purple-200"
           }`}
         >
           {l.genderAllowed}
@@ -298,7 +325,9 @@ export const AccommodationsPage: React.FC = () => {
       accessor: (l) => (
         <div className="text-[11px] text-slate-600 space-y-0.5">
           <div className="font-medium">{l.enquiriesCount} Enquiries</div>
-          <div className="font-bold text-emerald-700">{l.joinsCount} Joined</div>
+          <div className="font-bold text-emerald-700">
+            {l.joinsCount} Joined
+          </div>
         </div>
       ),
     },
@@ -350,7 +379,9 @@ export const AccommodationsPage: React.FC = () => {
       accessor: (e) => (
         <div className="text-xs">
           <div className="font-bold text-slate-900">{e.userName}</div>
-          <div className="text-[11px] text-slate-500 font-medium mt-0.5">{e.userMobile}</div>
+          <div className="text-[11px] text-slate-500 font-medium mt-0.5">
+            {e.userMobile}
+          </div>
         </div>
       ),
     },
@@ -368,7 +399,10 @@ export const AccommodationsPage: React.FC = () => {
       header: "Inquiry Message",
       className: "min-w-[220px]",
       accessor: (e) => (
-        <span className="text-[11px] text-slate-500 block line-clamp-2" title={e.message}>
+        <span
+          className="text-[11px] text-slate-500 block line-clamp-2"
+          title={e.message}
+        >
           {e.message || "Interested in PG accommodation"}
         </span>
       ),
@@ -464,7 +498,9 @@ export const AccommodationsPage: React.FC = () => {
       accessor: (v) => (
         <div className="text-xs">
           <div className="font-bold text-slate-900">{v.userName}</div>
-          <div className="text-[11px] text-slate-500 font-medium mt-0.5">{v.userMobile}</div>
+          <div className="text-[11px] text-slate-500 font-medium mt-0.5">
+            {v.userMobile}
+          </div>
         </div>
       ),
     },
@@ -539,7 +575,8 @@ export const AccommodationsPage: React.FC = () => {
             <span>Accommodation Marketplace (PG / Hostels)</span>
           </h1>
           <p className="text-xs text-slate-500 mt-1 font-medium">
-            Property verification checklists, tenant enquiry acceptance, scheduled visits, room & bed inventory, and joining commissions.
+            Property verification checklists, tenant enquiry acceptance,
+            scheduled visits, room & bed inventory, and joining commissions.
           </p>
         </div>
         {activeTab === "ENQUIRIES" && (
@@ -687,11 +724,18 @@ export const AccommodationsPage: React.FC = () => {
       >
         <div className="space-y-4 text-xs">
           <p className="text-slate-600">
-            Accept this tenant enquiry for <b>{selectedEnquiry?.propertyName}</b> and send host contact details:
+            Accept this tenant enquiry for{" "}
+            <b>{selectedEnquiry?.propertyName}</b> and send host contact
+            details:
           </p>
           <div className="p-3.5 bg-slate-50 rounded-2xl border border-slate-200 space-y-1.5">
-            <div className="font-bold text-slate-800">Tenant: {selectedEnquiry?.userName} ({selectedEnquiry?.userMobile})</div>
-            <div className="text-slate-500 font-medium">Move-In Target: {selectedEnquiry?.moveInDate}</div>
+            <div className="font-bold text-slate-800">
+              Tenant: {selectedEnquiry?.userName} ({selectedEnquiry?.userMobile}
+              )
+            </div>
+            <div className="text-slate-500 font-medium">
+              Move-In Target: {selectedEnquiry?.moveInDate}
+            </div>
             {selectedEnquiry?.message && (
               <div className="text-slate-600 italic mt-1 bg-white p-2.5 rounded-xl border border-slate-200/80">
                 "{selectedEnquiry.message}"
@@ -699,7 +743,9 @@ export const AccommodationsPage: React.FC = () => {
             )}
           </div>
           <div>
-            <label className="block font-semibold text-slate-700 mb-1">Response Note / Host Phone</label>
+            <label className="block font-semibold text-slate-700 mb-1">
+              Response Note / Host Phone
+            </label>
             <textarea
               rows={3}
               value={respondNotes}
@@ -735,11 +781,14 @@ export const AccommodationsPage: React.FC = () => {
       >
         <div className="space-y-4 text-xs">
           <p className="text-slate-600">
-            Set an appointment date and time slot for physical inspection of <b>{selectedEnquiry?.propertyName}</b>:
+            Set an appointment date and time slot for physical inspection of{" "}
+            <b>{selectedEnquiry?.propertyName}</b>:
           </p>
           <div className="grid grid-cols-2 gap-2.5">
             <div>
-              <label className="block font-semibold text-slate-700 mb-1">Appointment Date *</label>
+              <label className="block font-semibold text-slate-700 mb-1">
+                Appointment Date *
+              </label>
               <input
                 type="date"
                 value={visitDate}
@@ -757,7 +806,9 @@ export const AccommodationsPage: React.FC = () => {
             </div>
           </div>
           <div>
-            <label className="block font-semibold text-slate-700 mb-1">Visit Instructions</label>
+            <label className="block font-semibold text-slate-700 mb-1">
+              Visit Instructions
+            </label>
             <textarea
               rows={2}
               value={visitNotes}
@@ -801,7 +852,9 @@ export const AccommodationsPage: React.FC = () => {
             />
           </div>
           <div>
-            <label className="block font-semibold text-slate-700 mb-1">Tenant Full Name *</label>
+            <label className="block font-semibold text-slate-700 mb-1">
+              Tenant Full Name *
+            </label>
             <input
               type="text"
               required
@@ -813,7 +866,9 @@ export const AccommodationsPage: React.FC = () => {
           </div>
           <div className="grid grid-cols-2 gap-2.5">
             <div>
-              <label className="block font-semibold text-slate-700 mb-1">Tenant Mobile *</label>
+              <label className="block font-semibold text-slate-700 mb-1">
+                Tenant Mobile *
+              </label>
               <input
                 type="tel"
                 required
@@ -824,7 +879,9 @@ export const AccommodationsPage: React.FC = () => {
               />
             </div>
             <div>
-              <label className="block font-semibold text-slate-700 mb-1">Target Move-In Date</label>
+              <label className="block font-semibold text-slate-700 mb-1">
+                Target Move-In Date
+              </label>
               <input
                 type="date"
                 value={newEnqMoveInDate}
@@ -834,7 +891,9 @@ export const AccommodationsPage: React.FC = () => {
             </div>
           </div>
           <div>
-            <label className="block font-semibold text-slate-700 mb-1">Inquiry / Preference Message</label>
+            <label className="block font-semibold text-slate-700 mb-1">
+              Inquiry / Preference Message
+            </label>
             <textarea
               rows={2}
               value={newEnqMessage}

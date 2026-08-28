@@ -195,7 +195,8 @@ export const PartnersPage: React.FC = () => {
             <span>Service Partner Directory</span>
           </h1>
           <p className="text-xs text-slate-500 mt-1 font-medium">
-            Manage onboarding, ratings, document verification, and account status across all service zones
+            Manage onboarding, ratings, document verification, and account
+            status across all service zones
           </p>
         </div>
       </div>

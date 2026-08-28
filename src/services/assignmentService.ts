@@ -40,11 +40,7 @@ export const assignmentService = {
     partnerName: string,
     adminName: string,
   ): Promise<void> {
-    await bookingService.assignPartner(
-      bookingId,
-      partnerId,
-      adminName,
-    );
+    await bookingService.assignPartner(bookingId, partnerId, adminName);
     const asg = mockStore.assignments.find(
       (a) => a.id === assignmentId || a.bookingId === bookingId,
     );

@@ -23,7 +23,9 @@ export const bookingService = {
       list = list.filter((b) => b.status === filters.status);
     }
     if (filters?.assignmentStatus && filters.assignmentStatus !== "ALL") {
-      list = list.filter((b) => b.assignmentStatus === filters.assignmentStatus);
+      list = list.filter(
+        (b) => b.assignmentStatus === filters.assignmentStatus,
+      );
     }
     if (filters?.serviceCategory && filters.serviceCategory !== "ALL") {
       list = list.filter((b) => b.categoryName === filters.serviceCategory);
@@ -39,7 +41,7 @@ export const bookingService = {
           b.serviceName.toLowerCase().includes(q) ||
           b.id.toLowerCase().includes(q) ||
           b.partnerName?.toLowerCase().includes(q) ||
-          b.customerMobile.includes(q)
+          b.customerMobile.includes(q),
       );
     }
 
@@ -56,7 +58,7 @@ export const bookingService = {
     id: string,
     status: BookingStatus,
     note?: string,
-    adminId = "ADM-001"
+    adminId = "ADM-001",
   ): Promise<Booking> {
     await new Promise((r) => setTimeout(r, 100));
     const booking = mockStore.bookings.find((b) => b.id === id);
@@ -96,7 +98,10 @@ export const bookingService = {
     return { ...booking };
   },
 
-  async approveAdditionalCharge(bookingId: string, adminId = "ADM-001"): Promise<Booking> {
+  async approveAdditionalCharge(
+    bookingId: string,
+    adminId = "ADM-001",
+  ): Promise<Booking> {
     await new Promise((r) => setTimeout(r, 100));
     const booking = mockStore.bookings.find((b) => b.id === bookingId);
     if (!booking || !booking.additionalCharge) {
@@ -111,7 +116,8 @@ export const bookingService = {
     // Recalculate total amount
     const addAmt = booking.additionalCharge.amount;
     booking.baseAmount = booking.baseAmount || booking.amount;
-    booking.additionalChargesTotal = (booking.additionalChargesTotal || 0) + addAmt;
+    booking.additionalChargesTotal =
+      (booking.additionalChargesTotal || 0) + addAmt;
     booking.amount = booking.baseAmount + booking.additionalChargesTotal;
     booking.status = "IN_PROGRESS";
 
@@ -137,7 +143,10 @@ export const bookingService = {
     return { ...booking };
   },
 
-  async rejectAdditionalCharge(bookingId: string, adminId = "ADM-001"): Promise<Booking> {
+  async rejectAdditionalCharge(
+    bookingId: string,
+    adminId = "ADM-001",
+  ): Promise<Booking> {
     await new Promise((r) => setTimeout(r, 100));
     const booking = mockStore.bookings.find((b) => b.id === bookingId);
     if (!booking || !booking.additionalCharge) {
@@ -175,7 +184,7 @@ export const bookingService = {
   async assignPartner(
     bookingId: string,
     partnerId: string,
-    adminId = "ADM-001"
+    adminId = "ADM-001",
   ): Promise<Booking> {
     await new Promise((r) => setTimeout(r, 100));
     const booking = mockStore.bookings.find((b) => b.id === bookingId);

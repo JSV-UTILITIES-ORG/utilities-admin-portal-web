@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { verificationService } from "../../services/verificationService";
-import type { Verification, VerificationStatus, PartnerDocument } from "../../types/partner";
+import type {
+  Verification,
+  VerificationStatus,
+  PartnerDocument,
+} from "../../types/partner";
 import { DataTable, type Column } from "../../components/ui/DataTable";
 import { FilterBar, type FilterGroup } from "../../components/ui/FilterBar";
 import { StatusBadge } from "../../components/ui/StatusBadge";
@@ -44,7 +48,7 @@ export const VerificationPage: React.FC = () => {
     setIsLoading(true);
     try {
       const data = await verificationService.getVerifications(
-        statusParam as VerificationStatus | "ALL"
+        statusParam as VerificationStatus | "ALL",
       );
       setVerifications(data);
     } finally {
@@ -62,9 +66,11 @@ export const VerificationPage: React.FC = () => {
     try {
       await verificationService.approveVerification(
         selectedVerif.id,
-        admin?.name || "Super Admin"
+        admin?.name || "Super Admin",
       );
-      setActionSuccess(`Partner ${selectedVerif.partnerName} has been verified and approved.`);
+      setActionSuccess(
+        `Partner ${selectedVerif.partnerName} has been verified and approved.`,
+      );
       setIsReviewOpen(false);
       loadData();
       setTimeout(() => setActionSuccess(""), 4000);
@@ -79,9 +85,11 @@ export const VerificationPage: React.FC = () => {
       await verificationService.rejectVerification(
         selectedVerif.id,
         reason,
-        admin?.name || "Super Admin"
+        admin?.name || "Super Admin",
       );
-      setActionSuccess(`Verification for ${selectedVerif.partnerName} rejected.`);
+      setActionSuccess(
+        `Verification for ${selectedVerif.partnerName} rejected.`,
+      );
       setIsRejectOpen(false);
       setIsReviewOpen(false);
       loadData();
@@ -97,9 +105,11 @@ export const VerificationPage: React.FC = () => {
       await verificationService.requestMoreInfo(
         selectedVerif.id,
         notes,
-        admin?.name || "Super Admin"
+        admin?.name || "Super Admin",
       );
-      setActionSuccess(`Clarification requested from ${selectedVerif.partnerName}.`);
+      setActionSuccess(
+        `Clarification requested from ${selectedVerif.partnerName}.`,
+      );
       setIsInfoReqOpen(false);
       setIsReviewOpen(false);
       loadData();
@@ -218,10 +228,7 @@ export const VerificationPage: React.FC = () => {
       header: "Verification Timeline",
       className: "whitespace-nowrap min-w-[150px]",
       accessor: (v) => (
-        <SLAIndicator
-          elapsedHours={v.ageInHours}
-          limitHours={v.slaHours}
-        />
+        <SLAIndicator elapsedHours={v.ageInHours} limitHours={v.slaHours} />
       ),
     },
     {
@@ -248,7 +255,8 @@ export const VerificationPage: React.FC = () => {
   ];
 
   const isSelectedVerifClosed =
-    selectedVerif?.status === "APPROVED" || selectedVerif?.status === "REJECTED";
+    selectedVerif?.status === "APPROVED" ||
+    selectedVerif?.status === "REJECTED";
 
   return (
     <div className="space-y-6 pb-12">
@@ -262,7 +270,8 @@ export const VerificationPage: React.FC = () => {
             <span>Real-Time Partner KYC & Verification</span>
           </h1>
           <p className="text-xs text-slate-500 mt-1 font-medium">
-            Automated API verification telemetry (DigiLocker Aadhaar, NSDL PAN, IMPS Penny Drop) with fallback manual review.
+            Automated API verification telemetry (DigiLocker Aadhaar, NSDL PAN,
+            IMPS Penny Drop) with fallback manual review.
           </p>
         </div>
       </div>
@@ -308,26 +317,39 @@ export const VerificationPage: React.FC = () => {
                   <span>Real-Time Backend Verification Telemetry</span>
                 </span>
                 <span className="px-2.5 py-0.5 bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 rounded-full text-[10px] font-bold uppercase tracking-wider">
-                  Confidence: {selectedVerif.realtimeVerification?.overallConfidence || "HIGH"}
+                  Confidence:{" "}
+                  {selectedVerif.realtimeVerification?.overallConfidence ||
+                    "HIGH"}
                 </span>
               </div>
 
               <div className="grid grid-cols-3 gap-3 pt-1 text-center">
                 <div className="p-3 bg-slate-900/90 rounded-xl border border-slate-800">
-                  <div className="text-slate-400 text-[10px] font-medium">Aadhaar DigiLocker</div>
+                  <div className="text-slate-400 text-[10px] font-medium">
+                    Aadhaar DigiLocker
+                  </div>
                   <div className="text-emerald-400 font-extrabold mt-1 text-sm">
-                    {selectedVerif.realtimeVerification?.aadhaarMatchScore || 97}% Match
+                    {selectedVerif.realtimeVerification?.aadhaarMatchScore ||
+                      97}
+                    % Match
                   </div>
                 </div>
                 <div className="p-3 bg-slate-900/90 rounded-xl border border-slate-800">
-                  <div className="text-slate-400 text-[10px] font-medium">NSDL PAN Active</div>
+                  <div className="text-slate-400 text-[10px] font-medium">
+                    NSDL PAN Active
+                  </div>
                   <div className="text-emerald-400 font-extrabold mt-1 text-sm">
-                    {selectedVerif.realtimeVerification?.panMatchScore || 94}% Match
+                    {selectedVerif.realtimeVerification?.panMatchScore || 94}%
+                    Match
                   </div>
                 </div>
                 <div className="p-3 bg-slate-900/90 rounded-xl border border-slate-800">
-                  <div className="text-slate-400 text-[10px] font-medium">Bank Penny Drop</div>
-                  <div className="text-emerald-400 font-extrabold mt-1 text-sm">Verified Active</div>
+                  <div className="text-slate-400 text-[10px] font-medium">
+                    Bank Penny Drop
+                  </div>
+                  <div className="text-emerald-400 font-extrabold mt-1 text-sm">
+                    Verified Active
+                  </div>
                 </div>
               </div>
             </div>
@@ -379,7 +401,9 @@ export const VerificationPage: React.FC = () => {
                 <div className="w-full flex items-center justify-between">
                   <div className="flex items-center gap-1.5 text-xs font-bold text-slate-700 bg-slate-100 px-3 py-1.5 rounded-xl">
                     <Lock className="w-3.5 h-3.5 text-slate-500" />
-                    <span>Status: Verification is {selectedVerif.status} (Read-Only)</span>
+                    <span>
+                      Status: Verification is {selectedVerif.status} (Read-Only)
+                    </span>
                   </div>
                   <button
                     onClick={() => setIsReviewOpen(false)}
@@ -439,9 +463,15 @@ export const VerificationPage: React.FC = () => {
                 </p>
               </div>
               <div className="p-3 bg-white rounded-xl border border-slate-200 inline-block text-left text-[11px] space-y-1">
-                <div><b>Verification Provider:</b> NSDL / UIDAI DigiLocker</div>
-                <div><b>Match Confidence:</b> 95.8% (Exact Name & Photo Match)</div>
-                <div><b>Status:</b> Government Verified Authenticity</div>
+                <div>
+                  <b>Verification Provider:</b> NSDL / UIDAI DigiLocker
+                </div>
+                <div>
+                  <b>Match Confidence:</b> 95.8% (Exact Name & Photo Match)
+                </div>
+                <div>
+                  <b>Status:</b> Government Verified Authenticity
+                </div>
               </div>
             </div>
             <div className="flex justify-end">
@@ -460,7 +490,9 @@ export const VerificationPage: React.FC = () => {
       <ConfirmationDialog
         isOpen={isRejectOpen}
         onClose={() => setIsRejectOpen(false)}
-        onConfirm={() => handleReject("KYC document blurry / Name mismatch on government ID")}
+        onConfirm={() =>
+          handleReject("KYC document blurry / Name mismatch on government ID")
+        }
         title="Reject Partner Verification"
         message="Reject this verification submission? The partner will be notified to re-upload clear credentials."
         confirmLabel="Confirm Rejection"
@@ -471,7 +503,11 @@ export const VerificationPage: React.FC = () => {
       <ConfirmationDialog
         isOpen={isInfoReqOpen}
         onClose={() => setIsInfoReqOpen(false)}
-        onConfirm={() => handleRequestInfo("Please upload a clearer copy of your cancelled cheque.")}
+        onConfirm={() =>
+          handleRequestInfo(
+            "Please upload a clearer copy of your cancelled cheque.",
+          )
+        }
         title="Request Additional Information"
         message="Send notification to partner requesting re-upload of specific documents?"
         confirmLabel="Send Request"

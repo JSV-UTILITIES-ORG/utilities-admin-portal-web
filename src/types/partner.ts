@@ -9,11 +9,7 @@ export type PartnerStatus =
   | "INACTIVE";
 
 export type VerificationStatus =
-  | "PENDING"
-  | "IN_REVIEW"
-  | "APPROVED"
-  | "REJECTED"
-  | "MORE_INFO_REQUIRED";
+  "PENDING" | "IN_REVIEW" | "APPROVED" | "REJECTED" | "MORE_INFO_REQUIRED";
 
 export interface PartnerCapabilities {
   findWork: boolean;

@@ -55,7 +55,8 @@ const ProtectedRoute: React.FC<{
       <div className="p-8 text-center bg-white rounded-xl border border-slate-200 shadow-xs">
         <h2 className="text-base font-bold text-red-600">Access Restricted</h2>
         <p className="text-xs text-slate-500 mt-1">
-          Your active admin role does not possess the required `{permission}` permission.
+          Your active admin role does not possess the required `{permission}`
+          permission.
         </p>
       </div>
     );

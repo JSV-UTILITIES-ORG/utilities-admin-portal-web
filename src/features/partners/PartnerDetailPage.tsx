@@ -34,7 +34,9 @@ export const PartnerDetailPage: React.FC = () => {
 
   // Dialog state
   const [isStatusDialogOpen, setIsStatusDialogOpen] = useState(false);
-  const [targetStatus, setTargetStatus] = useState<"ACTIVE" | "SUSPENDED">("ACTIVE");
+  const [targetStatus, setTargetStatus] = useState<"ACTIVE" | "SUSPENDED">(
+    "ACTIVE",
+  );
   const [actionSuccess, setActionSuccess] = useState("");
 
   const loadPartner = async () => {
@@ -57,11 +59,21 @@ export const PartnerDetailPage: React.FC = () => {
     if (!partner) return;
     try {
       if (targetStatus === "SUSPENDED") {
-        await partnerService.suspendPartner(partner.id, reason, admin?.name || "Super Admin");
+        await partnerService.suspendPartner(
+          partner.id,
+          reason,
+          admin?.name || "Super Admin",
+        );
       } else {
-        await partnerService.activatePartner(partner.id, reason, admin?.name || "Super Admin");
+        await partnerService.activatePartner(
+          partner.id,
+          reason,
+          admin?.name || "Super Admin",
+        );
       }
-      setActionSuccess(`Partner status successfully updated to ${targetStatus}`);
+      setActionSuccess(
+        `Partner status successfully updated to ${targetStatus}`,
+      );
       setIsStatusDialogOpen(false);
       loadPartner();
       setTimeout(() => setActionSuccess(""), 4000);
@@ -81,7 +93,9 @@ export const PartnerDetailPage: React.FC = () => {
   if (!partner) {
     return (
       <div className="p-8 text-center bg-white rounded-xl border border-slate-200">
-        <h2 className="text-base font-bold text-slate-800">Partner Not Found</h2>
+        <h2 className="text-base font-bold text-slate-800">
+          Partner Not Found
+        </h2>
         <button
           onClick={() => navigate("/partners")}
           className="mt-3 px-3 py-1.5 text-xs bg-blue-600 text-white rounded-lg"
@@ -148,7 +162,9 @@ export const PartnerDetailPage: React.FC = () => {
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h1 className="text-lg font-bold text-slate-900">{partner.name}</h1>
+                <h1 className="text-lg font-bold text-slate-900">
+                  {partner.name}
+                </h1>
                 <span className="font-mono text-xs bg-slate-100 px-2 py-0.5 rounded text-slate-600">
                   {partner.id}
                 </span>
@@ -175,7 +191,9 @@ export const PartnerDetailPage: React.FC = () => {
           <div className="flex items-center gap-2 bg-slate-50 p-2.5 rounded-lg border border-slate-100">
             <Star className="w-5 h-5 fill-amber-400 text-amber-400" />
             <div>
-              <div className="text-base font-bold text-slate-900 leading-none">{partner.rating}</div>
+              <div className="text-base font-bold text-slate-900 leading-none">
+                {partner.rating}
+              </div>
               <div className="text-[10px] text-slate-400 mt-0.5">Rating</div>
             </div>
           </div>
@@ -213,20 +231,30 @@ export const PartnerDetailPage: React.FC = () => {
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <div className="p-4 bg-white rounded-xl border border-slate-200 shadow-xs">
           <div className="text-slate-400 text-xs font-medium">Total Jobs</div>
-          <div className="text-lg font-bold text-slate-900 mt-1">{partner.totalJobs}</div>
+          <div className="text-lg font-bold text-slate-900 mt-1">
+            {partner.totalJobs}
+          </div>
         </div>
         <div className="p-4 bg-white rounded-xl border border-slate-200 shadow-xs">
-          <div className="text-slate-400 text-xs font-medium">Completed Jobs</div>
-          <div className="text-lg font-bold text-slate-900 mt-1">{partner.completedJobs}</div>
+          <div className="text-slate-400 text-xs font-medium">
+            Completed Jobs
+          </div>
+          <div className="text-lg font-bold text-slate-900 mt-1">
+            {partner.completedJobs}
+          </div>
         </div>
         <div className="p-4 bg-white rounded-xl border border-slate-200 shadow-xs">
-          <div className="text-slate-400 text-xs font-medium">Total Earnings</div>
+          <div className="text-slate-400 text-xs font-medium">
+            Total Earnings
+          </div>
           <div className="text-lg font-bold text-slate-900 mt-1">
             ₹{partner.totalEarnings.toLocaleString()}
           </div>
         </div>
         <div className="p-4 bg-white rounded-xl border border-slate-200 shadow-xs">
-          <div className="text-slate-400 text-xs font-medium">Pending Payout</div>
+          <div className="text-slate-400 text-xs font-medium">
+            Pending Payout
+          </div>
           <div className="text-lg font-bold text-amber-600 mt-1">
             ₹{partner.pendingPayout.toLocaleString()}
           </div>
@@ -249,9 +277,12 @@ export const PartnerDetailPage: React.FC = () => {
           <div className="p-3 bg-slate-50 rounded-lg border border-slate-200 flex items-center gap-3">
             <Fingerprint className="w-6 h-6 text-blue-600" />
             <div>
-              <div className="font-bold text-xs text-slate-800">Aadhaar (DigiLocker)</div>
+              <div className="font-bold text-xs text-slate-800">
+                Aadhaar (DigiLocker)
+              </div>
               <div className="text-[11px] text-emerald-600 font-semibold">
-                Match: {partner.realtimeVerification?.aadhaarMatchScore || 97}% • Verified
+                Match: {partner.realtimeVerification?.aadhaarMatchScore || 97}%
+                • Verified
               </div>
             </div>
           </div>
@@ -261,7 +292,8 @@ export const PartnerDetailPage: React.FC = () => {
             <div>
               <div className="font-bold text-xs text-slate-800">PAN (NSDL)</div>
               <div className="text-[11px] text-emerald-600 font-semibold">
-                Active • Match: {partner.realtimeVerification?.panMatchScore || 94}%
+                Active • Match:{" "}
+                {partner.realtimeVerification?.panMatchScore || 94}%
               </div>
             </div>
           </div>
@@ -269,15 +301,21 @@ export const PartnerDetailPage: React.FC = () => {
           <div className="p-3 bg-slate-50 rounded-lg border border-slate-200 flex items-center gap-3">
             <Landmark className="w-6 h-6 text-purple-600" />
             <div>
-              <div className="font-bold text-xs text-slate-800">Bank Account (IMPS)</div>
-              <div className="text-[11px] text-emerald-600 font-semibold">Penny Drop Success</div>
+              <div className="font-bold text-xs text-slate-800">
+                Bank Account (IMPS)
+              </div>
+              <div className="text-[11px] text-emerald-600 font-semibold">
+                Penny Drop Success
+              </div>
             </div>
           </div>
         </div>
 
         {/* Uploaded Documents List */}
         <div className="space-y-2 pt-2">
-          <div className="text-[11px] font-bold uppercase text-slate-400">Document Uploads</div>
+          <div className="text-[11px] font-bold uppercase text-slate-400">
+            Document Uploads
+          </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             {partner.documents.map((doc) => (
               <div
@@ -286,7 +324,9 @@ export const PartnerDetailPage: React.FC = () => {
               >
                 <div className="flex items-center gap-2">
                   <FileText className="w-3.5 h-3.5 text-slate-400" />
-                  <span className="font-semibold text-slate-800">{doc.name}</span>
+                  <span className="font-semibold text-slate-800">
+                    {doc.name}
+                  </span>
                 </div>
                 <span className="text-[10px] font-semibold text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded">
                   {doc.status}
@@ -302,9 +342,15 @@ export const PartnerDetailPage: React.FC = () => {
         isOpen={isStatusDialogOpen}
         onClose={() => setIsStatusDialogOpen(false)}
         onConfirm={() => handleStatusChange("Operational review decision")}
-        title={targetStatus === "SUSPENDED" ? "Suspend Partner Account" : "Activate Partner Account"}
+        title={
+          targetStatus === "SUSPENDED"
+            ? "Suspend Partner Account"
+            : "Activate Partner Account"
+        }
         message={`Are you sure you want to change ${partner.name}'s status to ${targetStatus}?`}
-        confirmLabel={targetStatus === "SUSPENDED" ? "Suspend Partner" : "Activate Partner"}
+        confirmLabel={
+          targetStatus === "SUSPENDED" ? "Suspend Partner" : "Activate Partner"
+        }
         isDestructive={targetStatus === "SUSPENDED"}
       />
     </div>

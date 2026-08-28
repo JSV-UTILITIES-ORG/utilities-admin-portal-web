@@ -30,7 +30,9 @@ export const ServicesPage: React.FC = () => {
 
   // Active Hierarchy Selection
   const [selectedCatId, setSelectedCatId] = useState<string>("ALL");
-  const [activeTab, setActiveTab] = useState<"SERVICES" | "PACKAGES" | "SUBCATEGORIES">("SERVICES");
+  const [activeTab, setActiveTab] = useState<
+    "SERVICES" | "PACKAGES" | "SUBCATEGORIES"
+  >("SERVICES");
 
   // Modals
   const [isNewServiceOpen, setIsNewServiceOpen] = useState(false);
@@ -166,7 +168,9 @@ export const ServicesPage: React.FC = () => {
       loadData();
       setTimeout(() => setActionSuccess(""), 4000);
     } catch (err: unknown) {
-      alert(err instanceof Error ? err.message : "Failed to create subcategory");
+      alert(
+        err instanceof Error ? err.message : "Failed to create subcategory",
+      );
     }
   };
 
@@ -206,11 +210,15 @@ export const ServicesPage: React.FC = () => {
         <div>
           <span className="font-bold text-slate-900 text-xs">{s.name}</span>
           <div className="flex items-center gap-1.5 mt-0.5 text-[11px] text-slate-400">
-            <span className="font-mono bg-slate-100 px-1 py-0.5 rounded text-[10px]">{s.id}</span>
+            <span className="font-mono bg-slate-100 px-1 py-0.5 rounded text-[10px]">
+              {s.id}
+            </span>
             {s.subcategoryName && (
               <>
                 <span>•</span>
-                <span className="text-slate-600 font-medium">{s.subcategoryName}</span>
+                <span className="text-slate-600 font-medium">
+                  {s.subcategoryName}
+                </span>
               </>
             )}
           </div>
@@ -228,7 +236,9 @@ export const ServicesPage: React.FC = () => {
     {
       header: "Base Price",
       accessor: (s) => (
-        <span className="font-bold text-xs text-slate-900">₹{s.basePrice.toLocaleString()}</span>
+        <span className="font-bold text-xs text-slate-900">
+          ₹{s.basePrice.toLocaleString()}
+        </span>
       ),
     },
     {
@@ -264,7 +274,9 @@ export const ServicesPage: React.FC = () => {
       accessor: (p) => (
         <div>
           <span className="font-bold text-slate-900 text-xs">{p.name}</span>
-          <div className="text-[11px] text-slate-500 font-mono mt-0.5">{p.id}</div>
+          <div className="text-[11px] text-slate-500 font-mono mt-0.5">
+            {p.id}
+          </div>
         </div>
       ),
     },
@@ -280,7 +292,9 @@ export const ServicesPage: React.FC = () => {
       header: "Price & Duration",
       accessor: (p) => (
         <div className="text-xs">
-          <div className="font-bold text-slate-900">₹{p.basePrice.toLocaleString()}</div>
+          <div className="font-bold text-slate-900">
+            ₹{p.basePrice.toLocaleString()}
+          </div>
           <div className="text-[11px] text-slate-500">{p.duration} mins</div>
         </div>
       ),
@@ -299,7 +313,9 @@ export const ServicesPage: React.FC = () => {
       accessor: (p) => (
         <div className="text-[11px] text-slate-600 max-w-xs">
           {p.inclusions.slice(0, 2).map((inc, i) => (
-            <div key={i} className="truncate">• {inc}</div>
+            <div key={i} className="truncate">
+              • {inc}
+            </div>
           ))}
           {p.inclusions.length > 2 && (
             <div className="text-[10px] text-slate-400 font-medium">
@@ -321,14 +337,18 @@ export const ServicesPage: React.FC = () => {
       accessor: (sc) => (
         <div>
           <div className="font-bold text-slate-900 text-xs">{sc.name}</div>
-          <div className="text-[11px] text-slate-500 mt-0.5">{sc.description}</div>
+          <div className="text-[11px] text-slate-500 mt-0.5">
+            {sc.description}
+          </div>
         </div>
       ),
     },
     {
       header: "Category",
       accessor: (sc) => (
-        <span className="font-semibold text-xs text-slate-700">{sc.categoryName}</span>
+        <span className="font-semibold text-xs text-slate-700">
+          {sc.categoryName}
+        </span>
       ),
     },
     {
@@ -361,7 +381,9 @@ export const ServicesPage: React.FC = () => {
             <ArrowRight className="w-3 h-3 text-slate-400" />
             <span>Services</span>
             <ArrowRight className="w-3 h-3 text-slate-400" />
-            <span>Detailed Packages with pricing, warranty, and inclusions.</span>
+            <span>
+              Detailed Packages with pricing, warranty, and inclusions.
+            </span>
           </p>
         </div>
         <div className="flex items-center gap-2 flex-wrap">
@@ -500,7 +522,9 @@ export const ServicesPage: React.FC = () => {
       >
         <form onSubmit={handleCreateService} className="space-y-3.5 text-xs">
           <div>
-            <label className="block font-semibold text-slate-700 mb-1">Service Name *</label>
+            <label className="block font-semibold text-slate-700 mb-1">
+              Service Name *
+            </label>
             <input
               type="text"
               required
@@ -532,7 +556,9 @@ export const ServicesPage: React.FC = () => {
 
           <div className="grid grid-cols-2 gap-2.5">
             <div>
-              <label className="block font-semibold text-slate-700 mb-1">Base Price (₹) *</label>
+              <label className="block font-semibold text-slate-700 mb-1">
+                Base Price (₹) *
+              </label>
               <input
                 type="number"
                 required
@@ -542,7 +568,9 @@ export const ServicesPage: React.FC = () => {
               />
             </div>
             <div>
-              <label className="block font-semibold text-slate-700 mb-1">Duration (Mins) *</label>
+              <label className="block font-semibold text-slate-700 mb-1">
+                Duration (Mins) *
+              </label>
               <input
                 type="number"
                 required
@@ -554,7 +582,9 @@ export const ServicesPage: React.FC = () => {
           </div>
 
           <div>
-            <label className="block font-semibold text-slate-700 mb-1">Service Description</label>
+            <label className="block font-semibold text-slate-700 mb-1">
+              Service Description
+            </label>
             <textarea
               rows={2}
               value={newDesc}
@@ -601,7 +631,9 @@ export const ServicesPage: React.FC = () => {
           </div>
 
           <div>
-            <label className="block font-semibold text-slate-700 mb-1">Package Name *</label>
+            <label className="block font-semibold text-slate-700 mb-1">
+              Package Name *
+            </label>
             <input
               type="text"
               required
@@ -614,7 +646,9 @@ export const ServicesPage: React.FC = () => {
 
           <div className="grid grid-cols-3 gap-2.5">
             <div>
-              <label className="block font-semibold text-slate-700 mb-1">Price (₹) *</label>
+              <label className="block font-semibold text-slate-700 mb-1">
+                Price (₹) *
+              </label>
               <input
                 type="number"
                 required
@@ -624,7 +658,9 @@ export const ServicesPage: React.FC = () => {
               />
             </div>
             <div>
-              <label className="block font-semibold text-slate-700 mb-1">Duration (Mins)</label>
+              <label className="block font-semibold text-slate-700 mb-1">
+                Duration (Mins)
+              </label>
               <input
                 type="number"
                 value={pkgDuration}
@@ -633,7 +669,9 @@ export const ServicesPage: React.FC = () => {
               />
             </div>
             <div>
-              <label className="block font-semibold text-slate-700 mb-1">Warranty (Days)</label>
+              <label className="block font-semibold text-slate-700 mb-1">
+                Warranty (Days)
+              </label>
               <input
                 type="number"
                 value={pkgWarranty}
@@ -682,7 +720,10 @@ export const ServicesPage: React.FC = () => {
         title="Add Subcategory (Tier 2)"
         maxWidth="md"
       >
-        <form onSubmit={handleCreateSubcategory} className="space-y-3.5 text-xs">
+        <form
+          onSubmit={handleCreateSubcategory}
+          className="space-y-3.5 text-xs"
+        >
           <div>
             <CustomSelect
               label="Parent Category *"
@@ -693,7 +734,9 @@ export const ServicesPage: React.FC = () => {
           </div>
 
           <div>
-            <label className="block font-semibold text-slate-700 mb-1">Subcategory Name *</label>
+            <label className="block font-semibold text-slate-700 mb-1">
+              Subcategory Name *
+            </label>
             <input
               type="text"
               required
@@ -705,7 +748,9 @@ export const ServicesPage: React.FC = () => {
           </div>
 
           <div>
-            <label className="block font-semibold text-slate-700 mb-1">Description</label>
+            <label className="block font-semibold text-slate-700 mb-1">
+              Description
+            </label>
             <textarea
               rows={2}
               value={subcatDesc}

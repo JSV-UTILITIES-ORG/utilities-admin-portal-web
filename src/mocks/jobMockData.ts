@@ -10,7 +10,12 @@ export const INITIAL_JOB_POSTS: JobPost[] = [
     title: "Urgent: 4 Experienced AC Technicians for Commercial Tower",
     description:
       "Looking for 4 certified AC technicians for quarterly maintenance, filter replacement, and refrigerant pressure check across 12 floors in Hitec City commercial park.",
-    requiredSkills: ["AC Servicing", "HVAC Maintenance", "Gas Charging", "Electrical Safety"],
+    requiredSkills: [
+      "AC Servicing",
+      "HVAC Maintenance",
+      "Gas Charging",
+      "Electrical Safety",
+    ],
     workerCount: 4,
     filledWorkerCount: 1,
     location: "Cyber Gateway, Tower B, Hitec City",
@@ -20,8 +25,11 @@ export const INITIAL_JOB_POSTS: JobPost[] = [
     dailyPay: 1400,
     workingHours: "09:00 AM - 06:00 PM (Lunch Provided)",
     experienceYears: 2,
-    additionalRequirements: "Must carry basic toolset and safety shoes. Safety harness will be provided on site.",
-    attachments: ["https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=600&q=80"],
+    additionalRequirements:
+      "Must carry basic toolset and safety shoes. Safety harness will be provided on site.",
+    attachments: [
+      "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=600&q=80",
+    ],
     status: "PUBLISHED",
     createdAt: "2026-08-25 10:30",
     updatedAt: "2026-08-26 14:20",
@@ -38,7 +46,12 @@ export const INITIAL_JOB_POSTS: JobPost[] = [
     title: "Plumbing Crew for Gated Society Pipeline Overhaul",
     description:
       "Need 3 master plumbers to replace aging CPVC pipe risers and install pressure regulating valves in a 240-flat residential gated community in Whitefield.",
-    requiredSkills: ["Plumbing", "Pipe Fitting", "Pressure Valve Calibration", "Leak Detection"],
+    requiredSkills: [
+      "Plumbing",
+      "Pipe Fitting",
+      "Pressure Valve Calibration",
+      "Leak Detection",
+    ],
     workerCount: 3,
     filledWorkerCount: 0,
     location: "Green Meadows Township, Whitefield",
@@ -48,7 +61,8 @@ export const INITIAL_JOB_POSTS: JobPost[] = [
     dailyPay: 1600,
     workingHours: "08:30 AM - 05:30 PM",
     experienceYears: 3,
-    additionalRequirements: "Prior experience with multi-story plumbing risers required.",
+    additionalRequirements:
+      "Prior experience with multi-story plumbing risers required.",
     status: "SUBMITTED",
     createdAt: "2026-08-28 09:15",
     updatedAt: "2026-08-28 09:15",
@@ -63,7 +77,11 @@ export const INITIAL_JOB_POSTS: JobPost[] = [
     title: "Deep Cleaning Squad for Villa Handover",
     description:
       "Deep cleaning of two 4BHK luxury villas including floor scrubbing, glass polishing, kitchen degreasing, and balcony high-pressure washing.",
-    requiredSkills: ["Deep Cleaning", "Single-Disc Floor Scrubbing", "Glass Facade Cleaning"],
+    requiredSkills: [
+      "Deep Cleaning",
+      "Single-Disc Floor Scrubbing",
+      "Glass Facade Cleaning",
+    ],
     workerCount: 6,
     filledWorkerCount: 6,
     location: "Jubilee Hills, Road No. 36",
@@ -89,7 +107,11 @@ export const INITIAL_JOB_POSTS: JobPost[] = [
     title: "Industrial Electricians for Warehouse DB Panel Rewiring",
     description:
       "Rewiring of 8 Main Distribution Boards and installing surge protection units for logistics warehouse in Shamshabad.",
-    requiredSkills: ["Electrical Wiring", "3-Phase DB Dressing", "Industrial Earthing"],
+    requiredSkills: [
+      "Electrical Wiring",
+      "3-Phase DB Dressing",
+      "Industrial Earthing",
+    ],
     workerCount: 2,
     filledWorkerCount: 0,
     location: "Shamshabad Logistics Hub",
@@ -121,7 +143,8 @@ export const INITIAL_JOB_APPLICATIONS: JobApplication[] = [
     skills: ["AC Servicing", "HVAC Maintenance", "Gas Charging"],
     experienceYears: 4,
     distanceKm: 3.8,
-    coverNote: "Have worked on Daikin and Blue Star VRF systems in commercial buildings. Available for all 5 days.",
+    coverNote:
+      "Have worked on Daikin and Blue Star VRF systems in commercial buildings. Available for all 5 days.",
     status: "ASSIGNED",
     appliedAt: "2026-08-26 15:30",
     shortlistedAt: "2026-08-27 11:00",
@@ -141,7 +164,8 @@ export const INITIAL_JOB_APPLICATIONS: JobApplication[] = [
     skills: ["AC Servicing", "Gas Charging", "Electrical Safety"],
     experienceYears: 3,
     distanceKm: 5.2,
-    coverNote: "Certified HVAC tech with complete portable toolset and vacuum pump.",
+    coverNote:
+      "Certified HVAC tech with complete portable toolset and vacuum pump.",
     status: "SHORTLISTED",
     appliedAt: "2026-08-26 16:10",
     shortlistedAt: "2026-08-27 11:15",
@@ -174,7 +198,8 @@ export const INITIAL_JOB_APPLICATIONS: JobApplication[] = [
     skills: ["Plumbing", "Pipe Fitting", "Pressure Valve Calibration"],
     experienceYears: 6,
     distanceKm: 4.1,
-    coverNote: "10+ years commercial plumbing experience. Ready to join immediately.",
+    coverNote:
+      "10+ years commercial plumbing experience. Ready to join immediately.",
     status: "APPLIED",
     appliedAt: "2026-08-28 11:45",
   },

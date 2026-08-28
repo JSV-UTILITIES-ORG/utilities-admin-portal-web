@@ -52,30 +52,45 @@ export const dashboardService = {
 
     // Calculate actual metrics from mock store across all 3 marketplaces
     const pendingVerifications = mockStore.verifications.filter(
-      (v) => v.status === "PENDING" || v.status === "IN_REVIEW"
+      (v) => v.status === "PENDING" || v.status === "IN_REVIEW",
     ).length;
     const assignmentFailures = mockStore.assignments.filter(
-      (a) => a.status === "FAILED"
+      (a) => a.status === "FAILED",
     ).length;
-    const failedPayments = mockStore.payments.filter((p) => p.status === "FAILED");
+    const failedPayments = mockStore.payments.filter(
+      (p) => p.status === "FAILED",
+    );
     const failedPaymentCount = failedPayments.length;
-    const failedPaymentAmount = failedPayments.reduce((acc, p) => acc + p.amount, 0);
+    const failedPaymentAmount = failedPayments.reduce(
+      (acc, p) => acc + p.amount,
+      0,
+    );
     const openDisputes = mockStore.disputes.filter(
-      (d) => d.status === "OPEN" || d.status === "ESCALATED"
+      (d) => d.status === "OPEN" || d.status === "ESCALATED",
     ).length;
     const slaBreaches = mockStore.tickets.filter(
-      (t) => t.slaBreached && (t.status === "OPEN" || t.status === "IN_PROGRESS")
+      (t) =>
+        t.slaBreached && (t.status === "OPEN" || t.status === "IN_PROGRESS"),
     ).length;
-    const refundRequests = mockStore.refunds.filter((r) => r.status === "REQUESTED").length;
+    const refundRequests = mockStore.refunds.filter(
+      (r) => r.status === "REQUESTED",
+    ).length;
 
     // Jobs & PG queues
-    const pendingJobModerations = mockStore.jobs.filter((j) => j.status === "SUBMITTED").length;
-    const pendingPGVerifications = mockStore.accommodations.filter(
-      (a) => a.status === "UNDER_REVIEW" || a.status === "SUBMITTED"
+    const pendingJobModerations = mockStore.jobs.filter(
+      (j) => j.status === "SUBMITTED",
     ).length;
-    const totalPGBeds = mockStore.accommodations.reduce((acc, a) => acc + a.availableBeds, 0);
+    const pendingPGVerifications = mockStore.accommodations.filter(
+      (a) => a.status === "UNDER_REVIEW" || a.status === "SUBMITTED",
+    ).length;
+    const totalPGBeds = mockStore.accommodations.reduce(
+      (acc, a) => acc + a.availableBeds,
+      0,
+    );
     const totalPGJoins = mockStore.pgJoinings.length;
-    const totalCommission = mockStore.pgCommissions.reduce((acc, c) => acc + c.commissionAmount, 0) + 187200;
+    const totalCommission =
+      mockStore.pgCommissions.reduce((acc, c) => acc + c.commissionAmount, 0) +
+      187200;
 
     const actionRequired: ActionRequiredItem[] = [
       {
@@ -84,7 +99,8 @@ export const dashboardService = {
         title: "Partner KYC Verification",
         count: pendingVerifications,
         severity: "HIGH",
-        description: "New service partners awaiting document review & automated KYC",
+        description:
+          "New service partners awaiting document review & automated KYC",
         actionLabel: "Review",
         actionRoute: "/verification?status=PENDING",
       },
@@ -94,7 +110,8 @@ export const dashboardService = {
         title: "Partner Jobs Moderation",
         count: pendingJobModerations,
         severity: "HIGH",
-        description: "Partner workforce job posts requiring Admin review before publishing",
+        description:
+          "Partner workforce job posts requiring Admin review before publishing",
         actionLabel: "Moderate",
         actionRoute: "/jobs?status=SUBMITTED",
       },
@@ -104,7 +121,8 @@ export const dashboardService = {
         title: "PG Listing Checklist",
         count: pendingPGVerifications,
         severity: "MEDIUM",
-        description: "New accommodation properties pending physical & legal verification",
+        description:
+          "New accommodation properties pending physical & legal verification",
         actionLabel: "Inspect",
         actionRoute: "/accommodations?status=UNDER_REVIEW",
       },
@@ -135,7 +153,8 @@ export const dashboardService = {
         title: "Open Disputes",
         count: openDisputes,
         severity: "HIGH",
-        description: "Customer service quality & billing disputes requiring resolution",
+        description:
+          "Customer service quality & billing disputes requiring resolution",
         actionLabel: "Review",
         actionRoute: "/disputes?status=OPEN",
       },
@@ -155,7 +174,8 @@ export const dashboardService = {
         title: "Refund Requests",
         count: refundRequests,
         severity: "MEDIUM",
-        description: "Customer claims requiring refund review and settlement approval",
+        description:
+          "Customer claims requiring refund review and settlement approval",
         actionLabel: "Review",
         actionRoute: "/refunds?status=REQUESTED",
       },
@@ -203,13 +223,15 @@ export const dashboardService = {
       totalBookings: 1248,
       revenue: 842500,
       totalUsers: 3420,
-      activePartners: mockStore.partners.filter((p) => p.status === "ACTIVE").length + 42,
+      activePartners:
+        mockStore.partners.filter((p) => p.status === "ACTIVE").length + 42,
       completedServices: 1120,
       cancelledServices: 34,
       revenueGrowth: 18.4,
       bookingGrowth: 14.2,
       pendingJobsModeration: pendingJobModerations,
-      publishedJobsCount: mockStore.jobs.filter((j) => j.status === "PUBLISHED").length,
+      publishedJobsCount: mockStore.jobs.filter((j) => j.status === "PUBLISHED")
+        .length,
       pendingPGVerification: pendingPGVerifications,
       totalPGBedsAvailable: totalPGBeds,
       pgJoinsCount: totalPGJoins,

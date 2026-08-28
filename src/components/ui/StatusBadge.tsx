@@ -116,7 +116,8 @@ export const StatusBadge: React.FC<StatusBadgeProps> = ({
   };
 
   const style = getStyle(normalized);
-  const sizeClasses = size === "sm" ? "px-2 py-0.5 text-[10px]" : "px-2.5 py-0.5 text-[11px]";
+  const sizeClasses =
+    size === "sm" ? "px-2 py-0.5 text-[10px]" : "px-2.5 py-0.5 text-[11px]";
 
   return (
     <span

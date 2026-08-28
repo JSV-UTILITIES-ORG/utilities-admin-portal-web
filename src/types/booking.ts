@@ -19,12 +19,7 @@ export type BookingStatus =
   | "CLOSED";
 
 export type AssignmentStatus =
-  | "UNASSIGNED"
-  | "ASSIGNED"
-  | "ACCEPTED"
-  | "REJECTED"
-  | "FAILED"
-  | "REASSIGNED";
+  "UNASSIGNED" | "ASSIGNED" | "ACCEPTED" | "REJECTED" | "FAILED" | "REASSIGNED";
 
 export interface BookingTimelineEvent {
   id: string;

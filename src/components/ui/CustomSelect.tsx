@@ -40,7 +40,10 @@ export const CustomSelect: React.FC<CustomSelectProps> = ({
   // Close on outside click
   useEffect(() => {
     const handleOutsideClick = (e: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(e.target as Node)
+      ) {
         setIsOpen(false);
       }
     };
@@ -53,9 +56,10 @@ export const CustomSelect: React.FC<CustomSelectProps> = ({
   }, [isOpen]);
 
   const filteredOptions = searchable
-    ? options.filter((opt) =>
-        opt.label.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        opt.description?.toLowerCase().includes(searchQuery.toLowerCase())
+    ? options.filter(
+        (opt) =>
+          opt.label.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          opt.description?.toLowerCase().includes(searchQuery.toLowerCase()),
       )
     : options;
 
@@ -66,7 +70,10 @@ export const CustomSelect: React.FC<CustomSelectProps> = ({
   };
 
   return (
-    <div className={`relative inline-block text-left w-full ${className}`} ref={dropdownRef}>
+    <div
+      className={`relative inline-block text-left w-full ${className}`}
+      ref={dropdownRef}
+    >
       {label && (
         <label className="block text-xs font-semibold text-slate-700 mb-1">
           {label}
@@ -83,14 +90,22 @@ export const CustomSelect: React.FC<CustomSelectProps> = ({
             ? "border-blue-500 ring-2 ring-blue-500/10 text-slate-900"
             : "border-slate-200 text-slate-800 hover:border-slate-300 hover:bg-slate-50/50"
         } ${sizeClasses[size]} ${
-          disabled ? "opacity-50 cursor-not-allowed bg-slate-100" : "cursor-pointer"
+          disabled
+            ? "opacity-50 cursor-not-allowed bg-slate-100"
+            : "cursor-pointer"
         }`}
       >
         <span className="flex items-center gap-2 truncate">
           {selectedOption?.icon && (
-            <span className="shrink-0 text-slate-500">{selectedOption.icon}</span>
+            <span className="shrink-0 text-slate-500">
+              {selectedOption.icon}
+            </span>
           )}
-          <span className={selectedOption ? "text-slate-900 font-semibold" : "text-slate-400"}>
+          <span
+            className={
+              selectedOption ? "text-slate-900 font-semibold" : "text-slate-400"
+            }
+          >
             {selectedOption ? selectedOption.label : placeholder}
           </span>
         </span>
@@ -143,7 +158,9 @@ export const CustomSelect: React.FC<CustomSelectProps> = ({
                   >
                     <div className="flex items-center gap-2 truncate">
                       {option.icon && (
-                        <span className={`shrink-0 ${isSelected ? "text-blue-600" : "text-slate-400"}`}>
+                        <span
+                          className={`shrink-0 ${isSelected ? "text-blue-600" : "text-slate-400"}`}
+                        >
                           {option.icon}
                         </span>
                       )}

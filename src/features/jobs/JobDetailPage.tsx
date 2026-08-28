@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { jobService } from "../../services/jobService";
-import type { JobPost, JobApplication, ApplicationStatus } from "../../types/job";
+import type {
+  JobPost,
+  JobApplication,
+  ApplicationStatus,
+} from "../../types/job";
 import { StatusBadge } from "../../components/ui/StatusBadge";
 import { ConfirmationDialog } from "../../components/ui/ConfirmationDialog";
 import { useAuth } from "../auth/AuthContext";
@@ -58,14 +62,22 @@ export const JobDetailPage: React.FC = () => {
   const handleAppStatusChange = async (newStatus: ApplicationStatus) => {
     if (!selectedApp) return;
     try {
-      await jobService.updateApplicationStatus(selectedApp.id, newStatus, admin?.id);
-      setActionSuccess(`Applicant ${selectedApp.applicantName} marked as ${newStatus}!`);
+      await jobService.updateApplicationStatus(
+        selectedApp.id,
+        newStatus,
+        admin?.id,
+      );
+      setActionSuccess(
+        `Applicant ${selectedApp.applicantName} marked as ${newStatus}!`,
+      );
       setIsAssignModalOpen(false);
       setIsRejectAppOpen(false);
       loadJobData();
       setTimeout(() => setActionSuccess(""), 4000);
     } catch (err: unknown) {
-      alert(err instanceof Error ? err.message : "Failed to update application");
+      alert(
+        err instanceof Error ? err.message : "Failed to update application",
+      );
     }
   };
 
@@ -125,7 +137,9 @@ export const JobDetailPage: React.FC = () => {
               <span>•</span>
               <span>Posted on {job.createdAt}</span>
             </div>
-            <h1 className="text-xl font-bold text-slate-900 mt-1.5">{job.title}</h1>
+            <h1 className="text-xl font-bold text-slate-900 mt-1.5">
+              {job.title}
+            </h1>
             <div className="flex items-center gap-3 mt-2 text-xs text-slate-600">
               <span className="flex items-center gap-1.5 font-semibold text-slate-800">
                 <Building className="w-3.5 h-3.5 text-blue-600" />
@@ -153,7 +167,9 @@ export const JobDetailPage: React.FC = () => {
               <div className="text-[10px] uppercase font-bold tracking-wider text-slate-400">
                 Daily Compensation
               </div>
-              <div className="text-base font-bold text-emerald-600 mt-0.5">₹{job.dailyPay} / day</div>
+              <div className="text-base font-bold text-emerald-600 mt-0.5">
+                ₹{job.dailyPay} / day
+              </div>
             </div>
           </div>
         </div>
@@ -170,7 +186,9 @@ export const JobDetailPage: React.FC = () => {
               <span>Location</span>
             </div>
             <div className="font-bold text-slate-900 mt-1">{job.city}</div>
-            <div className="text-[11px] text-slate-500 truncate mt-0.5">{job.location}</div>
+            <div className="text-[11px] text-slate-500 truncate mt-0.5">
+              {job.location}
+            </div>
           </div>
 
           <div className="p-3 bg-slate-50/70 rounded-xl border border-slate-200/70 text-xs">
@@ -179,7 +197,9 @@ export const JobDetailPage: React.FC = () => {
               <span>Duration</span>
             </div>
             <div className="font-bold text-slate-900 mt-1">{job.startDate}</div>
-            <div className="text-[11px] text-slate-500 mt-0.5">to {job.endDate}</div>
+            <div className="text-[11px] text-slate-500 mt-0.5">
+              to {job.endDate}
+            </div>
           </div>
 
           <div className="p-3 bg-slate-50/70 rounded-xl border border-slate-200/70 text-xs">
@@ -187,7 +207,9 @@ export const JobDetailPage: React.FC = () => {
               <Clock className="w-3.5 h-3.5 text-blue-600" />
               <span>Working Hours</span>
             </div>
-            <div className="font-bold text-slate-900 mt-1">{job.workingHours}</div>
+            <div className="font-bold text-slate-900 mt-1">
+              {job.workingHours}
+            </div>
           </div>
 
           <div className="p-3 bg-slate-50/70 rounded-xl border border-slate-200/70 text-xs">
@@ -195,7 +217,9 @@ export const JobDetailPage: React.FC = () => {
               <Briefcase className="w-3.5 h-3.5 text-blue-600" />
               <span>Min. Experience</span>
             </div>
-            <div className="font-bold text-slate-900 mt-1">{job.experienceYears} Years</div>
+            <div className="font-bold text-slate-900 mt-1">
+              {job.experienceYears} Years
+            </div>
           </div>
         </div>
 
@@ -226,7 +250,8 @@ export const JobDetailPage: React.FC = () => {
               <span>Job Applications Received ({applications.length})</span>
             </h2>
             <p className="text-xs text-slate-500 mt-0.5">
-              Review applicant partner credentials. Once a partner is assigned, their status is locked.
+              Review applicant partner credentials. Once a partner is assigned,
+              their status is locked.
             </p>
           </div>
         </div>
@@ -250,10 +275,10 @@ export const JobDetailPage: React.FC = () => {
                     isAssigned
                       ? "bg-emerald-50/30 border-emerald-300"
                       : isShortlisted
-                      ? "bg-blue-50/20 border-blue-200"
-                      : isRejected
-                      ? "bg-slate-50/50 border-slate-200 opacity-60"
-                      : "bg-white border-slate-200 hover:border-slate-300 shadow-2xs"
+                        ? "bg-blue-50/20 border-blue-200"
+                        : isRejected
+                          ? "bg-slate-50/50 border-slate-200 opacity-60"
+                          : "bg-white border-slate-200 hover:border-slate-300 shadow-2xs"
                   }`}
                 >
                   <div className="flex items-start justify-between gap-3">
